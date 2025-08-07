@@ -1,0 +1,18 @@
+# williawmhds sway config file
+
+# setting the super key as mod
+set $mod Mod4
+
+# setting the terminal
+set $terminal alacritty
+
+#
+# KEYBINDS
+#
+
+bindsym $mod+t exec $terminal
+
+bindsym $mod+q kill
+
+bindsym $mod+Shift+e exec swaymsg exit
+
