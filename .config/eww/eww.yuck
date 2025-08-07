@@ -1,39 +1,37 @@
-(defpoll workspaces :interval "1s"
-  "swaymsg -t get_workspaces")
+;; --- Variables ---
+;; A "listening" variable that runs our script and updates whenever the script outputs a new line.
+(deflisten workspaces :initial "[]" "~/.config/eww/scripts/workspaces.sh")
 
-(defwidget workspace-button [name focused visible]
-  (box
-    :class (cond
-             focused "focused"
-             visible "occupied"
-             true "empty")
-    :onclick "swaymsg workspace ${name}"
-    (label :text name)))
+;; A "polling" variable that runs the `date` command every second to get the time.
+(defpoll datetime :interval "1s" "date '+%a %b %d, %I:%M %p'")
 
-(defwidget workspace-bar []
-  (box :orientation "horizontal"
-       (for [ws (take 10 workspaces)]
-         (workspace-button
-           :name ws.name
-           :focused ws.focused
-           :visible ws.visible))))
 
-(defwidget center-clock []
-  (label :text (strftime "%a %b %d %H:%M:%S" (time))))
+;; --- Widget Definitions ---
+;; This defines our custom workspace widget.
+(defwidget workspaces []
+  (box :class "workspaces"
+       :orientation "h"
+       :spacing 5
+       :space-evenly false
+    ;; The `for` element generates a list of widgets from a JSON array. [cite: 273, 282]
+    (for ws in workspaces
+      (button :class "ws-button ${ws.status}"
+              :onclick "swaymsg workspace ${ws.name}"
+              "${ws.name}"))))
 
-(defwidget main-bar []
-  (box :orientation "horizontal" :space-evenly false :halign "fill"
-    (box :class "left" :hexpand false
-         (workspace-bar))
-    (box :class "center" :hexpand true :halign "center"
-         (center-clock))
-    (box :class "right" :hexpand false)))
 
+;; --- Window Definition ---
+;; This defines the bar itself.
 (defwindow bar
-  :monitor "<primary>"
-  :geometry (geometry :x "0px" :y "0px" :width "100%" :height "30px" :anchor "top center")
+  :monitor 0
+  :geometry (geometry :x "0%" :y "0%" :width "100%" :height "30px" :anchor "top center")
   :stacking "fg"
+  :reserve (struts :distance "35px" :side "top")
   :windowtype "dock"
-  :exclusive true
-  :focusable "none"
-  (main-bar))
+  :wm-ignore false
+  ;; Here we use a centerbox to position our widgets left, center, and right. 
+  (centerbox :orientation "h"
+    (workspaces)
+    (label :class "datetime" :text datetime)
+    (box :halign "end") ;; Empty box for the right side
+  ))
