@@ -1,27 +1,28 @@
 ;; --- Variables ---
-;; A "listening" variable that runs our script and updates whenever the script outputs a new line.
-(deflisten workspaces :initial "[]" "~/.config/eww/scripts/workspaces.sh")
+;; Listens to our script and stores the output in the "workspaces" variable.
+(deflisten workspaces :initial "[]" "~/.config/eww/scripts/getWorkspaces.sh")
 
-;; A "polling" variable that runs the `date` command every second to get the time.
+;; Polls the date and time every second.
 (defpoll datetime :interval "1s" "date '+%a %b %d, %I:%M %p'")
 
 
 ;; --- Widget Definitions ---
-;; This defines our custom workspace widget.
-(defwidget workspaces []
+;; Defines the widget that displays the workspace buttons.
+(defwidget workspaces-widget []
   (box :class "workspaces"
        :orientation "h"
        :spacing 5
        :space-evenly false
-    ;; The `for` element generates a list of widgets from a JSON array. [cite: 273, 282]
-    (for ws in workspaces
-      (button :class "ws-button ${ws.status}"
-              :onclick "swaymsg workspace ${ws.name}"
-              "${ws.name}"))))
+    ;; Loop through the JSON array from our script
+    (for entry in workspaces
+      (button :onclick "swaymsg workspace ${entry.name}"
+              ;; Set the class to "focused" only if the workspace is the active one
+              :class "ws-button ${entry.focused ? 'focused' : ''}"
+        "${entry.name}"))))
 
 
 ;; --- Window Definition ---
-;; This defines the bar itself.
+;; Defines the bar itself.
 (defwindow bar
   :monitor 0
   :geometry (geometry :x "0%" :y "0%" :width "100%" :height "30px" :anchor "top center")
@@ -29,9 +30,8 @@
   :reserve (struts :distance "35px" :side "top")
   :windowtype "dock"
   :wm-ignore false
-  ;; Here we use a centerbox to position our widgets left, center, and right. 
   (centerbox :orientation "h"
-    (workspaces)
+    (workspaces-widget)
     (label :class "datetime" :text datetime)
     (box :halign "end") ;; Empty box for the right side
   ))
