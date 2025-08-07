@@ -26,6 +26,9 @@ bindsym $mod+t exec $terminal
 # kills focused window
 bindsym $mod+q kill
 
+# reset sway
+bindsym $mod+Shift+r restart
+
 # exit sway
 bindsym $mod+Shift+e exec swaymsg exit
 
