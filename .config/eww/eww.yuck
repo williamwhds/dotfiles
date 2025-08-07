@@ -1,48 +1,39 @@
-;; -- Variables --
-;; This variable runs the 'swaymsg' command every second to get a JSON list
-;; of all workspaces. Eww will automatically update when this JSON changes.
 (defpoll workspaces :interval "1s"
-  `swaymsg -t get_workspaces | jq '.[] | select(.name != "__i3_scratch")' | jq -s .`)
+  "swaymsg -t get_workspaces")
 
-;; This variable runs the 'date' command every second to get the time.
-(defpoll clock :interval "1s"
-  `date +'%a %b %d %I:%M %p'`)
+(defwidget workspace-button [name focused visible]
+  (box
+    :class (cond
+             focused "focused"
+             visible "occupied"
+             true "empty")
+    :onclick "swaymsg workspace ${name}"
+    (label :text name)))
 
+(defwidget workspace-bar []
+  (box :orientation "horizontal"
+       (for [ws (take 10 workspaces)]
+         (workspace-button
+           :name ws.name
+           :focused ws.focused
+           :visible ws.visible))))
 
-;; -- Widgets --
-;; This defines our workspaces widget.
-(defwidget workspaces []
-  (box :class "workspaces"
-    ;; We use the 'for' loop to generate a button for each workspace in our JSON variable. [cite: 273, 278, 282]
-    (for workspace in workspaces
-      (button
-        ;; We set a CSS class based on the workspace state using a conditional. 
-        :class "${workspace.focused ? "ws-focused" : (workspace.visible ? "ws-occupied" : "ws-empty")}"
-        :onclick "swaymsg workspace number ${workspace.num}"
-        "${workspace.num}"
-      )
-    )
-  )
-)
+(defwidget center-clock []
+  (label :text (strftime "%a %b %d %H:%M:%S" (time))))
 
-;; This defines our clock widget.
-(defwidget clock []
-  (box :class "clock" clock)
-)
+(defwidget main-bar []
+  (box :orientation "horizontal" :space-evenly false :halign "fill"
+    (box :class "left" :hexpand false
+         (workspace-bar))
+    (box :class "center" :hexpand true :halign "center"
+         (center-clock))
+    (box :class "right" :hexpand false)))
 
-
-;; -- Window Definition --
-;; This defines the bar window itself. [cite: 60]
 (defwindow bar
-  :monitor 0
-  :windowtype "dock"
-  :geometry (geometry :x "0%" :y "0%" :width "100%" :height "30px" :anchor "top center")
-  :reserve (struts :distance "35px" :side "top")
+  :monitor "<primary>"
+  :geometry (geometry :x "0px" :y "0px" :width "100%" :height "30px" :anchor "top center")
   :stacking "fg"
-  :wm-ignore false
-  (centerbox :orientation "h"
-    (workspaces)
-    (box) ;; Empty box for the center
-    (clock)
-  )
-)
+  :windowtype "dock"
+  :exclusive true
+  :focusable "none"
+  (main-bar))
