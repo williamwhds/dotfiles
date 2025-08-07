@@ -1,31 +1,42 @@
-* {
-  all: unset;
-  font-family: "Fira Code", monospace;
+/* --- General Bar Styling --- */
+.bar {
+  background-color: #1e1e2e;
+  color: #cdd6f4;
+  font-family: "FiraCode Nerd Font", monospace;
   font-size: 14px;
+  padding: 0 10px;
 }
 
-.left, .center, .right {
+/* --- Workspace Widget Styling --- */
+.workspaces .ws-button {
   padding: 0 10px;
+  border-radius: 5px;
+  transition: all 0.3s ease;
+}
+
+/* --- Workspace Status Colors --- */
+/* "color 1": The selected/active workspace */
+.ws-button.active {
+  background-color: #89b4fa; /* A nice blue */
+  color: #1e1e2e;
+}
+
+/* "color 2": A workspace with windows in it */
+.ws-button.occupied {
+  background-color: #45475a; /* A subtle gray */
+}
+
+/* "color 3": An empty workspace */
+.ws-button.empty {
   background-color: transparent;
 }
 
-.focused {
-  background-color: color1;
-  color: white;
-  padding: 4px 8px;
-  border-radius: 5px;
+/* Add a hover effect for all buttons */
+.ws-button:hover {
+  background-color: #f5c2e7; /* A nice pink */
 }
 
-.occupied {
-  background-color: color2;
-  color: white;
-  padding: 4px 8px;
-  border-radius: 5px;
-}
-
-.empty {
-  background-color: color3;
-  color: white;
-  padding: 4px 8px;
-  border-radius: 5px;
+/* --- Datetime Widget Styling --- */
+.datetime {
+  font-weight: bold;
 }
