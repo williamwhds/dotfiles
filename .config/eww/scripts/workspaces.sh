@@ -1,31 +1,42 @@
 #!/bin/bash
 
-# This script outputs workspace information as a single line of JSON
-# for eww to consume.
+# This script gets the entire sway layout tree and processes it in one go.
 
-# Function to output workspace data
-function get_workspaces {
-    # Get all workspaces from sway
-    local workspaces=$(swaymsg -t get_workspaces)
+get_workspaces() {
+    # Get the entire layout tree from sway
+    tree=$(swaymsg -t get_tree)
 
-    # Get all open windows and find their parent workspace name
-    local windows=$(swaymsg -t get_tree | jq -r '.. | select(.type?) | select(.type=="con" or .type=="floating_con") | .workspace.name' | sort -u)
+    # Use jq to process this tree into the desired JSON format
+    echo "$tree" | jq '
+        # Step 1: Find all workspace nodes recursively
+        [.. | objects | select(.type? == "workspace")] |
 
-    # Combine the data into the desired JSON format
-    echo "$workspaces" | jq --argjson windows "$(echo "$windows" | jq -R . | jq -s .)" '
+        # Step 2: For each workspace, extract the name, focus state, and window count
+        map({
+            "name": .name,
+            "focused": .focused,
+            "windows": (.nodes | length + .floating_nodes | length)
+        }) |
+
+        # Step 3: Map this data to the final "active", "occupied", "empty" status
         map({
             "name": .name,
             "status": if .focused then "active"
-                      elif ($windows | index(.name)) then "occupied"
+                      elif .windows > 0 then "occupied"
                       else "empty" end
-        })
-    ' | jq -c . # -c outputs a compact, single line
+        }) |
+
+        # Step 4: Sort the workspaces numerically for a consistent order
+        sort_by(.name | tonumber)
+    ' | jq -c . # Output the final array as a compact, single line
 }
 
 # Initial output
 get_workspaces
 
-# Subscribe to sway workspace events and re-run the function on each event
-swaymsg -t subscribe -m '["workspace"]' | while read -r line; do
+# This new subscription listens for both workspace AND window events.
+# This is crucial for updating the "occupied/empty" status correctly
+# when you open or close a window.
+swaymsg -t subscribe -m '["workspace", "window"]' -- | while read -r event; do
     get_workspaces
 done
