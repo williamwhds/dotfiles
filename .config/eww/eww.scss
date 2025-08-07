@@ -1,36 +1,31 @@
-// General styling for the bar
-.bar {
-  background-color: #1e1e2e;
-  color: #cdd6f4;
-  font-family: "FiraCode Nerd Font", monospace;
+* {
+  all: unset;
+  font-family: "Fira Code", monospace;
   font-size: 14px;
 }
 
-// Style for the workspaces module
-.workspaces button {
+.left, .center, .right {
   padding: 0 10px;
-  margin: 3px 3px;
-  border-radius: 5px;
-  transition: all 0.3s ease-in-out;
-}
-
-// "Color 1": The currently focused workspace
-.ws-focused {
-  background-color: #89b4fa; // A nice blue
-  color: #1e1e2e;
-}
-
-// "Color 2": A workspace that has a window in it
-.ws-occupied {
-  background-color: #45475a; // A dark gray
-}
-
-// "Color 3": An empty, unused workspace
-.ws-empty {
   background-color: transparent;
 }
 
-// Style for the clock module
-.clock {
-  padding-right: 15px;
+.focused {
+  background-color: color1;
+  color: white;
+  padding: 4px 8px;
+  border-radius: 5px;
+}
+
+.occupied {
+  background-color: color2;
+  color: white;
+  padding: 4px 8px;
+  border-radius: 5px;
+}
+
+.empty {
+  background-color: color3;
+  color: white;
+  padding: 4px 8px;
+  border-radius: 5px;
 }
