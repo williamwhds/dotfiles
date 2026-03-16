@@ -110,8 +110,8 @@
   nixpkgs.config.allowUnfree = true;
 
   # decrypting secrets with sops
-  sops.defaultSopsFile = ./secrets/secrets.yaml;
-  sops.age.keyFile = "./secret-key.txt";
+  sops.defaultSopsFile = /home/williamwhds/.dotfiles/secrets/secrets.yaml;
+  sops.age.keyFile = "/home/williamwhds/.dotfiles/secrets/age-keys.txt";
 
   sops.secrets.github_token_config = {
     path = "/etc/nixos/access-tokens";
