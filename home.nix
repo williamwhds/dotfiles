@@ -67,12 +67,6 @@
     # EDITOR = "emacs";
   };
 
-  # checking if dotfiles-private is working
-  home.file.".local/bin/howdy" = {
-    source = "${dotfiles-private}/scripts/howdy.sh";
-    executable = true;
-  };
-
   # my shell
   programs.zsh = {
     enable = true;
@@ -81,7 +75,7 @@
     autosuggestion.enable = true;
     syntaxHighlighting.enable = true;
     shellAliases = {
-      sops-edit = "nix shell nixpkgs#sops --command bash -c 'SOPS_AGE_KEY_FILE=./secret-key.txt sops secrets/secrets.yaml";
+      sops-edit = "SOPS_AGE_KEY_FILE=~/.dotfiles/secret-key.txt sops ~/.dotfiles/secrets/secrets.yaml";
     };
   };
 
