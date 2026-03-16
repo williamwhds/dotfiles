@@ -111,7 +111,7 @@
 
   # decrypting secrets with sops
   sops.defaultSopsFile = /home/williamwhds/.dotfiles/secrets/secrets.yaml;
-  sops.age.keyFile = "/home/williamwhds/.dotfiles/secrets/age-keys.txt";
+  sops.age.keyFile = "/home/williamwhds/.dotfiles/secret-key.txt";
 
   sops.secrets.github_token_config = {
     path = "/etc/nixos/access-tokens";
