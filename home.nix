@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, pkgs, dotfiles-private, ... }:
 
 {
   home.username = "williamwhds";
@@ -67,8 +67,12 @@
     # EDITOR = "emacs";
   };
 
-  # Let Home Manager install and manage itself.
-  programs.home-manager.enable = true;
+  # checking if dotfiles-private is working
+  home.file.".local/bin/howdy" = {
+    source = "${dotfiles-private}/scripts/howdy.sh";
+    executable = true;
+  };
+
   # my shell
   programs.zsh = {
     enable = true;
@@ -76,5 +80,11 @@
     oh-my-zsh.theme = "gnzh";
     autosuggestion.enable = true;
     syntaxHighlighting.enable = true;
+    shellAliases = {
+      sops-edit = "nix shell nixpkgs#sops --command bash -c 'SOPS_AGE_KEY_FILE=./secret-key.txt sops secrets/secrets.yaml";
+    };
   };
+
+  # home-manager itself
+  programs.home-manager.enable = true;
 }

@@ -109,11 +109,26 @@
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
 
+  # decrypting secrets with sops
+  sops.defaultSopsFile = ./secrets/secrets.yaml;
+  sops.age.keyFile = "./secret-key.txt";
+
+  sops.secrets.github_token_config = {
+    path = "/etc/nixos/access-tokens";
+    owner = "root";
+  };
+
+  # adding file to global options so I can use it in other places
+  nix.extraOptions = ''
+    !include /etc/nixos/access-tokens
+  '';
+
   environment.systemPackages = with pkgs; [
     git # version control
     gh # github-cli
     curl # web requests
     wget # web requests
+    sops # secrets management
     ghostty # terminal
     foot # backup terminal
     fastfetch # le cool ascii art
