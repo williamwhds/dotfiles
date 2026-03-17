@@ -1,4 +1,4 @@
-{ config, pkgs, dotfiles-private, ... }:
+{ config, pkgs, inputs, ... }:
 
 {
   home.username = "williamwhds";

@@ -2,24 +2,18 @@
   description = "My NixOS config";
 
   inputs = {
-    # packages
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.11";
-
-    # home-manager
     home-manager.url = "github:nix-community/home-manager/release-25.11";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
+    sops-nix.url = "github:Mic92/sops-nix"; # secrets management
 
-    # secrets management
-    sops-nix.url = "github:Mic92/sops-nix";
-
-    # my private dotfiles
     dotfiles-private = {
       url = "github:williamwhds/dotfiles-private";
       flake = false;
     };
   };
 
-  outputs = { self, nixpkgs, home-manager, sops-nix, dotfiles-private, ... }@inputs:
+  outputs = { self, nixpkgs, ... }@inputs:
   let
     lib = nixpkgs.lib;
     system = "x86_64-linux";
@@ -27,16 +21,20 @@
     nixosConfigurations = {
       nixos-z550ma = lib.nixosSystem {
         inherit system;
-        specialArgs = { inherit dotfiles-private; }; # apparently I need this to use the private files in the configuration
+        specialArgs = {
+          inherit inputs;
+        };
         modules = [
           ./configuration.nix # my config files
-          sops-nix.nixosModules.sops # sops for secrets management
-          home-manager.nixosModules.home-manager # home-manager for dotfiles
+          inputs.sops-nix.nixosModules.sops
+          inputs.home-manager.nixosModules.home-manager
           {
+            home-manager.users.williamwhds = ./home.nix;
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
-            home-manager.extraSpecialArgs = { inherit dotfiles-private; }; # apparently I need to do it twice
-            home-manager.users.williamwhds = ./home.nix;
+            home-manager.extraSpecialArgs = {
+              inherit inputs;
+            };
           }
         ];
       };
