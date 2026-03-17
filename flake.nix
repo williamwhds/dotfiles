@@ -12,6 +12,7 @@
     # secrets management
     sops-nix.url = "github:Mic92/sops-nix";
 
+    # my private dotfiles
     dotfiles-private = {
       url = "github:williamwhds/dotfiles-private";
       flake = false;
