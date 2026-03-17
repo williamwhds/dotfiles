@@ -124,20 +124,22 @@
   '';
 
   environment.systemPackages = with pkgs; [
-    git # version control
-    gh # github-cli
-    curl # web requests
-    wget # web requests
-    sops # secrets management
-    ghostty # terminal
-    foot # backup terminal
-    fastfetch # le cool ascii art
-    zed-editor # text editor
-    floorp-bin # web browser
-    obsidian # note-taking
-    kdePackages.kdenlive # video editor
-    vesktop # discord client
-    steam # game
+    git                   # version control
+    gh                    # github-cli
+    curl                  # web requests
+    wget                  # web requests
+    sops                  # secrets management
+    ghostty               # terminal
+    foot                  # backup terminal
+    fastfetch             # le cool ascii art
+    zed-editor            # text editor
+    floorp-bin            # web browser
+    obsidian              # note-taking
+    kdePackages.kdenlive  # video editor
+    vesktop               # discord client
+    steam                 # games
+
+    inputs.awww.packages.${pkgs.stdenv.hostPlatform.system}.awww # wallpaper manager
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
