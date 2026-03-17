@@ -14,7 +14,7 @@
 
     dotfiles-private = {
       url = "github:williamwhds/dotfiles-private";
-      flake = false; # just some private folders and files
+      flake = false;
     };
   };
 
