@@ -67,6 +67,24 @@
     # EDITOR = "emacs";
   };
 
+  # niri configs
+  programs.niri.settings = {
+    layout = {
+      gaps = 16;
+      border.enable = true;
+      focus-ring.enable = true;
+    };
+
+    spawn-at-startup = [
+      { argv = ["awww-daemon"];}
+      { argv = ["awww" "img" "~/.dotfiles/home/images/wallpapers/splatoon-wallpaper.png"];}
+    ];
+
+    binds = {
+      "Mod+T".action.spawn = "foot";
+    };
+  };
+
   # my shell
   programs.zsh = {
     enable = true;

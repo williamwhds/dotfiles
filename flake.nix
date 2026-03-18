@@ -7,6 +7,7 @@
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
     sops-nix.url = "github:Mic92/sops-nix"; # secrets management
     awww.url = "git+https://codeberg.org/LGFae/awww"; # wallpaper management
+    niri.url = "github:sodiboo/niri-flake"; # wm
 
     dotfiles-private = {
       url = "github:williamwhds/dotfiles-private";
@@ -27,6 +28,7 @@
         };
         modules = [
           ./configuration.nix # my config files
+          inputs.niri.nixosModules.niri
           inputs.sops-nix.nixosModules.sops
           inputs.home-manager.nixosModules.home-manager
           {

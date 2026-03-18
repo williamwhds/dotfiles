@@ -6,6 +6,7 @@
       ./hardware-configuration.nix
     ];
 
+  nixpkgs.overlays = [ inputs.niri.overlays.niri ];
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
   # enabling hardware graphics acceleration (old laptop)
@@ -69,9 +70,13 @@
   };
 
   programs.xwayland.enable = true; # allows X11 apps to run inside Wayland
-  programs.niri.enable = true; # enabling Niri
   programs.zsh.enable = true; # enabling Zsh
   services.flatpak.enable = true; # enabling Flatpak
+
+  programs.niri = {
+    enable = true;
+    package = pkgs.niri-unstable;
+  };
 
   # Configure console keymap
   console.keyMap = "us-acentos";
