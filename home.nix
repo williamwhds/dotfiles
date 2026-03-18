@@ -71,14 +71,24 @@
   programs.niri.settings = {
     layout = {
       gaps = 16;
-      border.enable = true;
       focus-ring.enable = true;
+      focus-ring.width = 1;
     };
 
     spawn-at-startup = [
       { argv = ["awww-daemon"];}
       { argv = ["awww" "img" "~/.dotfiles/home/images/wallpapers/splatoon-wallpaper.png"];}
     ];
+
+    # window-rules = [    -> niri-unstable feature, not available yet in niri-flake apparently
+      # --- Blur Background ---
+      #{
+      #  matches = [
+          #{ app-id = "foot"; }
+        #];
+        #blur = true;
+        #}
+    # ];
 
     binds = {
       "Mod+T".action.spawn = "foot";
