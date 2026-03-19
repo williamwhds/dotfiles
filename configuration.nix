@@ -37,6 +37,15 @@
   # Enable networking
   networking.networkmanager.enable = true;
 
+  # Enable Bluetooth
+  hardware.bluetooth.enable = true;
+
+  # Enable power profiles
+  services.power-profiles-daemon.enable = true;
+
+  # Enable battery status
+  services.upower.enable = true;
+
   # Set your time zone.
   time.timeZone = "America/Bahia";
 
