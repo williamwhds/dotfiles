@@ -138,6 +138,8 @@
     foot                  # backup terminal
     fastfetch             # le cool ascii art
     zed-editor            # text editor
+    neovim                # text editor
+    btop 		              # system monitor
     floorp-bin            # web browser
     obsidian              # note-taking
     kdePackages.kdenlive  # video editor
