@@ -129,6 +129,8 @@
 
       "Mod+Q".action.close-window = {};
 
+      "Mod+Space".action.toggle-overview = {};
+
       "Mod+F".action.maximize-column = {};
       "Mod+Shift+F".action.fullscreen-window = {};
 
