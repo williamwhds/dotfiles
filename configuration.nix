@@ -156,6 +156,7 @@
     steam                 # games
 
     inputs.awww.packages.${pkgs.stdenv.hostPlatform.system}.awww # wallpaper manager
+    inputs.noctalia.packages.${pkgs.stdenv.hostPlatform.system}.default # noctalia
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
