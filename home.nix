@@ -180,9 +180,12 @@
     settings = {
       # configure noctalia here
       bar = {
-        density = "compact";
+        density = "mini";
         position = "top";
+        barType = "mini";
         showCapsule = false;
+        marginVertical = 0;
+        marginHorizontal = 4;
         widgets = {
           left = [
             {
@@ -249,6 +252,14 @@
         };
       };
 
+      dock = {
+        enable = true;
+        position = "bottom";
+        displayMode = "auto_hide";
+        dockType = "floating";
+        pinnedStatic = true;
+      };
+
       appLauncher = {
         enableClipboardHistory = true;
       };
@@ -259,7 +270,6 @@
           "stripes"
           "wipe"
         ];
-        defaultWallpaper = "splatoon-wallpaper.png";
         directory = "${config.home.homeDirectory}/.dotfiles/home/images/wallpapers";
       };
 
