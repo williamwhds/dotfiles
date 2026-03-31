@@ -113,7 +113,7 @@
     binds = {
       # --- Launch Applications ---
       "Mod+T".action.spawn = "foot";
-      "Mod+Return".action.spawn-sh = "noctalia-shell ipc call launcher toggle";
+      "Mod+Return".action.spawn-sh = "noctalia-shell ipc call launcher toggle"; # Noctalia app launcher
 
       # --- Workspace and Windows ---
       "Mod+1".action.focus-workspace = 1;
