@@ -117,9 +117,13 @@
     ];
 
     binds = {
-      # --- Launch Applications ---
+      # --- Applications, Commands and Shells ---
       "Mod+T".action.spawn = "foot";
+
+      "Mod+Shift+S".action.screenshot = {};
       "Mod+Return".action.spawn-sh = "noctalia-shell ipc call launcher toggle"; # Noctalia app launcher
+      "Mod+C".action.spawn-sh = "noctalia-shell ipc call launcher clipboard"; # Noctalia clipboard
+      "Mod+Shift+Backspace".action.spawn-sh = "noctalia-shell ipc call sessionMenu toggle"; # Noctalia session menu
 
       # --- Workspace and Windows ---
       "Mod+1".action.focus-workspace = 1;
@@ -243,6 +247,10 @@
             }
           ];
         };
+      };
+
+      appLauncher = {
+        enableClipboardHistory = true;
       };
 
       wallpaper = {
