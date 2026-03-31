@@ -182,10 +182,10 @@
       bar = {
         density = "mini";
         position = "top";
-        barType = "mini";
+        barType = "floating";
         showCapsule = false;
         marginVertical = 0;
-        marginHorizontal = 4;
+        marginHorizontal = 8;
         widgets = {
           left = [
             {
