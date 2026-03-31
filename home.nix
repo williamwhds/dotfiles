@@ -1,6 +1,10 @@
 { config, pkgs, inputs, ... }:
 
 {
+  imports = [
+    inputs.noctalia.homeModules.default # now we can edit noctalia in this file
+  ];
+
   home.username = "williamwhds";
   home.homeDirectory = "/home/williamwhds";
 
@@ -100,11 +104,16 @@
     spawn-at-startup = [
       { argv = ["awww-daemon"];}
       { argv = ["awww" "img" "~/.dotfiles/home/images/wallpapers/splatoon-wallpaper.png"];}
+
+      {
+        command = ["noctalia-shell"];
+      }
     ];
 
     binds = {
       # --- Launch Applications ---
       "Mod+T".action.spawn = "foot";
+      "Mod+Return".action.spawn-sh = "noctalia-shell ipc call launcher toggle";
 
       # --- Workspace and Windows ---
       "Mod+1".action.focus-workspace = 1;
@@ -153,6 +162,69 @@
     shellAliases = {
       sops-edit = "SOPS_AGE_KEY_FILE=~/.dotfiles/secret-key.txt sops ~/.dotfiles/secrets/secrets.yaml";
     };
+  };
+
+  # noctalia
+  programs.noctalia-shell = {
+    enable = true;
+    settings = {
+      # configure noctalia here
+      bar = {
+        density = "compact";
+        position = "top";
+        showCapsule = false;
+        widgets = {
+          left = [
+            {
+              id = "ControlCenter";
+              useDistroLogo = true;
+            }
+
+            {
+              id = "Network";
+            }
+
+            {
+              id = "Bluetooth";
+            }
+          ];
+
+          center = [
+            {
+              hideUnoccupied = false;
+              id = "Workspace";
+              labelMode = "none";
+            }
+          ];
+
+          right = [
+            {
+              alwaysShowPercentage = false;
+              id = "Battery";
+              warningThreshold = 30;
+            }
+
+            {
+              formatHorizontal = "HH:mm";
+              formatVertical = "HH mm";
+              id = "Clock";
+              useMonospacedFont = true;
+              usePrimaryColor = true;
+            }
+          ];
+        };
+      };
+      colorSchemes.predefinedScheme = "Monochrome";
+      general = {
+        # avatarImage = "/home/drfoobar/.face";
+        radiusRatio = 0.2;
+      };
+      location = {
+        monthBeforeDay = true;
+        name = "Marseille, France";
+      };
+    };
+    # this may also be a string or a path to a JSON file.
   };
 
   # home-manager itself
