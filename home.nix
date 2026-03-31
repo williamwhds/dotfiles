@@ -108,8 +108,8 @@
     ];
 
     spawn-at-startup = [
-      { argv = ["awww-daemon"];}
-      { argv = ["awww" "img" "~/.dotfiles/home/images/wallpapers/splatoon-wallpaper.png"];}
+      # { argv = ["awww-daemon"];} --- using noctalia's wallpaper manager. Might want to switch back later tho
+      # { argv = ["awww" "img" "~/.dotfiles/home/images/wallpapers/splatoon-wallpaper.png"];}
 
       {
         command = ["noctalia-shell"];
@@ -187,11 +187,11 @@
             }
 
             {
-              id = "Network";
+              id = "SystemMonitor";
             }
 
             {
-              id = "Bluetooth";
+              id = "MediaMini";
             }
           ];
 
@@ -205,29 +205,64 @@
 
           right = [
             {
-              alwaysShowPercentage = false;
+              id = "Tray";
+            }
+
+            {
+              id = "NotificationHistory";
+            }
+
+            {
+              id = "KeyboardLayout";
+            }
+
+            {
+              id = "Volume";
+            }
+
+            {
+              id = "Network";
+            }
+
+            {
+              id = "Bluetooth";
+            }
+
+            {
               id = "Battery";
+              alwaysShowPercentage = false;
               warningThreshold = 30;
             }
 
             {
+              id = "Clock";
               formatHorizontal = "HH:mm";
               formatVertical = "HH mm";
-              id = "Clock";
               useMonospacedFont = true;
               usePrimaryColor = true;
             }
           ];
         };
       };
-      colorSchemes.predefinedScheme = "Monochrome";
+
+      wallpaper = {
+        enabled = true; # check this later, I might want to replace awww manager with noctalia's
+        transitionType = [
+          "stripes"
+          "wipe"
+        ];
+        defaultWallpaper = "splatoon-wallpaper.png";
+        directory = "${config.home.homeDirectory}/.dotfiles/home/images/wallpapers";
+      };
+
+      colorSchemes.predefinedScheme = "Gruvbox";
       general = {
         # avatarImage = "/home/drfoobar/.face";
         radiusRatio = 0.2;
       };
       location = {
-        monthBeforeDay = true;
-        name = "Marseille, France";
+        monthBeforeDay = false;
+        name = "Porto Seguro, Brazil";
       };
     };
     # this may also be a string or a path to a JSON file.
