@@ -38,7 +38,7 @@
     # '')
   ];
 
-  home.file = {
+  home.file =
     # # Building this configuration will create a copy of 'dotfiles/screenrc' in
     # # the Nix store. Activating the configuration will then make '~/.screenrc' a
     # # symlink to the Nix store copy.
@@ -49,7 +49,13 @@
     #   org.gradle.console=verbose
     #   org.gradle.daemon.idletimeout=3600000
     # '';
-  };
+    builtins.mapAttrs (key: value: {
+      # setting symlinks outside of Nix Store, this way I don't need to rebuild the config everytime I change these files
+      # symlink ~/.dotfiles/{value} to ~/{key}
+      source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/.dotfiles/${value}";
+    }) {
+      ".config/nvim" = "home/config/nvim";
+    };
 
   # Home Manager can also manage your environment variables through
   # 'home.sessionVariables'. These will be explicitly sourced when using a
