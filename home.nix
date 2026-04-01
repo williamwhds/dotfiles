@@ -178,7 +178,6 @@
   programs.noctalia-shell = {
     enable = true;
     settings = {
-      # configure noctalia here
       bar = {
         density = "mini";
         position = "top";
@@ -275,7 +274,7 @@
 
       colorSchemes.predefinedScheme = "Gruvbox";
       general = {
-        # avatarImage = "/home/drfoobar/.face";
+        avatarImage = "${config.home.homeDirectory}/.dotfiles/home/images/profile/gappy.png";
         radiusRatio = 0.2;
       };
       location = {
@@ -283,7 +282,6 @@
         name = "Porto Seguro, Brazil";
       };
     };
-    # this may also be a string or a path to a JSON file.
   };
 
   # home-manager itself
