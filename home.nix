@@ -1,4 +1,9 @@
-{ config, pkgs, inputs, ... }:
+{
+  config,
+  pkgs,
+  inputs,
+  ...
+}:
 
 {
   imports = [
@@ -49,13 +54,15 @@
     #   org.gradle.console=verbose
     #   org.gradle.daemon.idletimeout=3600000
     # '';
-    builtins.mapAttrs (key: value: {
-      # setting symlinks outside of Nix Store, this way I don't need to rebuild the config everytime I change these files
-      # symlink ~/.dotfiles/{value} to ~/{key}
-      source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/.dotfiles/${value}";
-    }) {
-      ".config/nvim" = "home/config/nvim";
-    };
+    builtins.mapAttrs
+      (key: value: {
+        # setting symlinks outside of Nix Store, this way I don't need to rebuild the config everytime I change these files
+        # symlink ~/.dotfiles/{value} to ~/{key}
+        source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/.dotfiles/${value}";
+      })
+      {
+        ".config/nvim" = "home/config/nvim";
+      };
 
   # Home Manager can also manage your environment variables through
   # 'home.sessionVariables'. These will be explicitly sourced when using a
@@ -102,7 +109,7 @@
       }
 
       {
-        matches = [{app-id = "^foot$";}];
+        matches = [ { app-id = "^foot$"; } ];
         open-floating = true;
       }
     ];
@@ -112,7 +119,7 @@
       # { argv = ["awww" "img" "~/.dotfiles/home/images/wallpapers/splatoon-wallpaper.png"];}
 
       {
-        command = ["noctalia-shell"];
+        command = [ "noctalia-shell" ];
       }
     ];
 
@@ -120,7 +127,7 @@
       # --- Applications, Commands and Shells ---
       "Mod+T".action.spawn = "foot";
 
-      "Mod+Shift+S".action.screenshot = {};
+      "Mod+Shift+S".action.screenshot = { };
       "Mod+Return".action.spawn-sh = "noctalia-shell ipc call launcher toggle"; # Noctalia app launcher
       "Mod+C".action.spawn-sh = "noctalia-shell ipc call launcher clipboard"; # Noctalia clipboard
       "Mod+Shift+Backspace".action.spawn-sh = "noctalia-shell ipc call sessionMenu toggle"; # Noctalia session menu
@@ -136,29 +143,29 @@
       "Mod+Shift+3".action.move-column-to-workspace = 3;
       "Mod+Shift+4".action.move-column-to-workspace = 4;
 
-      "Mod+Left".action.focus-column-or-monitor-left = {};
-      "Mod+Down".action.focus-window-or-workspace-down = {};
-      "Mod+Up".action.focus-window-or-workspace-up = {};
-      "Mod+Right".action.focus-column-or-monitor-right = {};
+      "Mod+Left".action.focus-column-or-monitor-left = { };
+      "Mod+Down".action.focus-window-or-workspace-down = { };
+      "Mod+Up".action.focus-window-or-workspace-up = { };
+      "Mod+Right".action.focus-column-or-monitor-right = { };
 
-      "Mod+Shift+Left".action.move-column-left-or-to-monitor-left = {};
-      "Mod+Shift+Down".action.move-window-down-or-to-workspace-down = {};
-      "Mod+Shift+Up".action.move-window-up-or-to-workspace-up = {};
-      "Mod+Shift+Right".action.move-column-right-or-to-monitor-right = {};
+      "Mod+Shift+Left".action.move-column-left-or-to-monitor-left = { };
+      "Mod+Shift+Down".action.move-window-down-or-to-workspace-down = { };
+      "Mod+Shift+Up".action.move-window-up-or-to-workspace-up = { };
+      "Mod+Shift+Right".action.move-column-right-or-to-monitor-right = { };
 
-      "Mod+Q".action.close-window = {};
+      "Mod+Q".action.close-window = { };
 
-      "Mod+Space".action.toggle-overview = {};
+      "Mod+Space".action.toggle-overview = { };
 
-      "Mod+F".action.maximize-column = {};
-      "Mod+Shift+F".action.fullscreen-window = {};
+      "Mod+F".action.maximize-column = { };
+      "Mod+Shift+F".action.fullscreen-window = { };
 
-      "Mod+V".action.toggle-window-floating = {};
-      "Mod+Shift+V".action.switch-focus-between-floating-and-tiling = {};
+      "Mod+V".action.toggle-window-floating = { };
+      "Mod+Shift+V".action.switch-focus-between-floating-and-tiling = { };
 
       # not really useful, so I might rebind R to something else later
-      "Mod+R".action.switch-preset-column-width = {};
-      "Mod+Shift+R".action.switch-preset-window-height = {};
+      "Mod+R".action.switch-preset-column-width = { };
+      "Mod+Shift+R".action.switch-preset-window-height = { };
     };
   };
 
@@ -169,9 +176,6 @@
     oh-my-zsh.theme = "gnzh";
     autosuggestion.enable = true;
     syntaxHighlighting.enable = true;
-    shellAliases = {
-      sops-edit = "SOPS_AGE_KEY_FILE=~/.dotfiles/secret-key.txt sops ~/.dotfiles/secrets/secrets.yaml";
-    };
   };
 
   # noctalia

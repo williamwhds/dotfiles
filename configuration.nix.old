@@ -17,26 +17,19 @@
     "flakes"
   ];
 
-  # Bootloader
-  boot.loader.systemd-boot.enable = false;
-  boot.loader.efi.canTouchEfiVariables = false;
-
-  boot.loader.grub = {
+  # enabling hardware graphics acceleration (old laptop)
+  hardware.graphics = {
     enable = true;
-    efiSupport = true;
-    efiInstallAsRemovable = true;
-    device = "nodev";
+    extraPackages = with pkgs; [
+      vpl-gpu-rt # For intel igpu
+      intel-vaapi-driver # Hardware video decoding
+      libvdpau-va-gl # Compat layer
+    ];
   };
 
-  boot.initrd.availableKernelModules = [
-    "xhci_pci"
-    "ehci_pci"
-    "ahci"
-    "usb_storage"
-    "uas"
-    "sd_mod"
-    "sr_mod"
-  ];
+  # Bootloader
+  boot.loader.systemd-boot.enable = true;
+  boot.loader.efi.canTouchEfiVariables = true;
 
   # boot.loader.grub.enable = true;
   # boot.loader.grub.device = "/dev/sda";
