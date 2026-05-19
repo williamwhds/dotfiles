@@ -62,8 +62,17 @@
   # Enable Bluetooth
   hardware.bluetooth.enable = true;
 
-  # Enable power profiles
-  services.power-profiles-daemon.enable = true;
+  # tlp - power management
+  services.power-profiles-daemon.enable = false;
+
+  services.tlp = {
+    enable = true;
+    settings = {
+      # battery thresholds
+      START_CHARGE_THRESH_BAT0 = 60;
+      STOP_CHARGE_THRESH_BAT0 = 80;
+    };
+  };
 
   # Enable battery status
   services.upower.enable = true;
