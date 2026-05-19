@@ -38,6 +38,11 @@
     "sr_mod"
   ];
 
+  hardware.graphics = {
+    enable = true;
+    enable32Bit = true;
+  };
+
   # zram
   zramSwap = {
     enable = true;
@@ -173,7 +178,6 @@
     obsidian # note-taking
     kdePackages.kdenlive # video editor
     vesktop # discord client
-    steam # games
 
     # this is getting crowded, I'm modularizing it later
     nil # Nix Language Server
@@ -184,6 +188,12 @@
     inputs.awww.packages.${pkgs.stdenv.hostPlatform.system}.awww # wallpaper manager
     inputs.noctalia.packages.${pkgs.stdenv.hostPlatform.system}.default # noctalia
   ];
+
+  programs.steam = {
+    enable = true;
+    remotePlay.openFirewall = true;
+    dedicatedServer.openFirewall = true;
+  };
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
