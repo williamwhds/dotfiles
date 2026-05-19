@@ -160,7 +160,9 @@
 
     # this is getting crowded, I'm modularizing it later
     nil # Nix Language Server
-    nixd
+    nixd # Nix Daemon
+    nodePackages.vscode-langservers-extracted # vscode language servers
+    package-version-server # package version server for vscode language servers
 
     inputs.awww.packages.${pkgs.stdenv.hostPlatform.system}.awww # wallpaper manager
     inputs.noctalia.packages.${pkgs.stdenv.hostPlatform.system}.default # noctalia
