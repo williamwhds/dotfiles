@@ -8,6 +8,12 @@
     home-manager.url = "github:nix-community/home-manager/release-25.11";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
 
+    plasma-manager = {
+      url = "github:nix-community/plasma-manager";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.home-manager.follows = "home-manager";
+    };
+
     awww.url = "git+https://codeberg.org/LGFae/awww"; # wallpaper management
 
     niri.url = "github:sodiboo/niri-flake"; # wm
