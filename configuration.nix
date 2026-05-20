@@ -18,25 +18,27 @@
   ];
 
   # Bootloader
-  boot.loader.systemd-boot.enable = false;
-  boot.loader.efi.canTouchEfiVariables = false;
 
-  boot.loader.grub = {
-    enable = true;
-    efiSupport = true;
-    efiInstallAsRemovable = true;
-    device = "nodev";
-  };
+  # old bootloader stuff, move this somewhere else later
+  #boot.loader.systemd-boot.enable = false;
+  #boot.loader.efi.canTouchEfiVariables = false;
 
-  boot.initrd.availableKernelModules = [
-    "xhci_pci"
-    "ehci_pci"
-    "ahci"
-    "usb_storage"
-    "uas"
-    "sd_mod"
-    "sr_mod"
-  ];
+  #boot.loader.grub = {
+  #  enable = true;
+  #  efiSupport = true;
+  #  efiInstallAsRemovable = true;
+  #  device = "nodev";
+  #};
+
+  #boot.initrd.availableKernelModules = [
+  #  "xhci_pci"
+  #  "ehci_pci"
+  #  "ahci"
+  #  "usb_storage"
+  # "uas"
+  # "sd_mod"
+  #  "sr_mod"
+  #];
 
   hardware.graphics = {
     enable = true;
