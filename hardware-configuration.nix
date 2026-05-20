@@ -13,15 +13,15 @@
   boot.kernelModules = [ "kvm-amd" ];
   boot.extraModulePackages = [ ];
 
-  fileSystems."/" =
-    { device = "/dev/mapper/crypted";
-      fsType = "btrfs";
-      options = [ "subvol=root" ];
-    };
-
-  boot.initrd.luks.devices."crypted".device = "/dev/disk/by-uuid/11810af3-d5d5-4aed-8948-bfd349628097";
-
   # disko manages these now.
+
+  #fileSystems."/" =
+  #  { device = "/dev/mapper/crypted";
+  #    fsType = "btrfs";
+  #    options = [ "subvol=root" ];
+  #  };
+
+  #boot.initrd.luks.devices."crypted".device = "/dev/disk/by-uuid/11810af3-d5d5-4aed-8948-bfd349628097";
 
   #fileSystems."/boot" =
   #  { device = "/dev/disk/by-uuid/3C96-0938";
