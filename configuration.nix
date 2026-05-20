@@ -9,13 +9,35 @@
   imports = [
     # Include the results of the hardware scan.
     ./hardware-configuration.nix
+    ./disko-config.nix
+    "${builtins.fetchTarball "https://github.com/nix-community/disko/archive/master.tar.gz"}/module.nix"
   ];
 
-  nixpkgs.overlays = [ inputs.niri.overlays.niri ];
-  nix.settings.experimental-features = [
-    "nix-command"
-    "flakes"
-  ];
+  # Bootloader
+  boot.loader.systemd-boot.enable = true;
+  boot.loader.systemd-boot.configurationLimit = 10;
+  boot.loader.efi.canTouchEfiVariables = true;
+
+  # old bootloader stuff, move this somewhere else later
+  #boot.loader.systemd-boot.enable = false;
+  #boot.loader.efi.canTouchEfiVariables = false;
+
+  #boot.loader.grub = {
+  #  enable = true;
+  #  efiSupport = true;
+  #  efiInstallAsRemovable = true;
+  #  device = "nodev";
+  #};
+
+  #boot.initrd.availableKernelModules = [
+  #  "xhci_pci"
+  #  "ehci_pci"
+  #  "ahci"
+  #  "usb_storage"
+  # "uas"
+  # "sd_mod"
+  #  "sr_mod"
+  #];
 
   # save space by hardlinking identical files in the Nix store
   nix.settings.auto-optimise-store = true;
@@ -53,31 +75,11 @@
     };
   };
 
-  # Bootloader
-  boot.loader.systemd-boot.enable = true;
-  boot.loader.systemd-boot.configurationLimit = 10;
-  boot.loader.efi.canTouchEfiVariables = true;
-
-  # old bootloader stuff, move this somewhere else later
-  #boot.loader.systemd-boot.enable = false;
-  #boot.loader.efi.canTouchEfiVariables = false;
-
-  #boot.loader.grub = {
-  #  enable = true;
-  #  efiSupport = true;
-  #  efiInstallAsRemovable = true;
-  #  device = "nodev";
-  #};
-
-  #boot.initrd.availableKernelModules = [
-  #  "xhci_pci"
-  #  "ehci_pci"
-  #  "ahci"
-  #  "usb_storage"
-  # "uas"
-  # "sd_mod"
-  #  "sr_mod"
-  #];
+  nixpkgs.overlays = [ inputs.niri.overlays.niri ];
+  nix.settings.experimental-features = [
+    "nix-command"
+    "flakes"
+  ];
 
   hardware.graphics = {
     enable = true;
