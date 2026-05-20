@@ -21,23 +21,25 @@
 
   boot.initrd.luks.devices."crypted".device = "/dev/disk/by-uuid/11810af3-d5d5-4aed-8948-bfd349628097";
 
-  fileSystems."/boot" =
-    { device = "/dev/disk/by-uuid/3C96-0938";
-      fsType = "vfat";
-      options = [ "fmask=0077" "dmask=0077" ];
-    };
+  # disko manages these now.
 
-  fileSystems."/home" =
-    { device = "/dev/mapper/crypted";
-      fsType = "btrfs";
-      options = [ "subvol=home" ];
-    };
-
-  fileSystems."/nix" =
-    { device = "/dev/mapper/crypted";
-      fsType = "btrfs";
-      options = [ "subvol=nix" ];
-    };
+  #fileSystems."/boot" =
+  #  { device = "/dev/disk/by-uuid/3C96-0938";
+  #    fsType = "vfat";
+  #    options = [ "fmask=0077" "dmask=0077" ];
+  #  };
+  #
+  #fileSystems."/home" =
+  #  { device = "/dev/mapper/crypted";
+  #    fsType = "btrfs";
+  #    options = [ "subvol=home" ];
+  #  };
+  #
+  #fileSystems."/nix" =
+  #  { device = "/dev/mapper/crypted";
+  #    fsType = "btrfs";
+  #    options = [ "subvol=nix" ];
+  #  };
 
   swapDevices = [ ];
 
