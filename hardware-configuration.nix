@@ -8,20 +8,35 @@
     [ (modulesPath + "/installer/scan/not-detected.nix")
     ];
 
-  boot.initrd.availableKernelModules = [ "nvme" "ehci_pci" "xhci_pci" "usbhid" "uas" "usb_storage" "sd_mod" "rtsx_pci_sdmmc" ];
+  boot.initrd.availableKernelModules = [ "nvme" "ehci_pci" "xhci_pci" "usbhid" "uas" "sd_mod" "rtsx_pci_sdmmc" ];
   boot.initrd.kernelModules = [ ];
   boot.kernelModules = [ "kvm-amd" ];
   boot.extraModulePackages = [ ];
 
   fileSystems."/" =
-    { device = "/dev/disk/by-uuid/b45db4ed-b0f5-4e07-a078-ef05ef90ec18";
-      fsType = "ext4";
+    { device = "/dev/mapper/crypted";
+      fsType = "btrfs";
+      options = [ "subvol=root" ];
     };
 
+  boot.initrd.luks.devices."crypted".device = "/dev/disk/by-uuid/11810af3-d5d5-4aed-8948-bfd349628097";
+
   fileSystems."/boot" =
-    { device = "/dev/disk/by-uuid/EFED-B812";
+    { device = "/dev/disk/by-uuid/3C96-0938";
       fsType = "vfat";
-      options = [ "fmask=0022" "dmask=0022" ];
+      options = [ "fmask=0077" "dmask=0077" ];
+    };
+
+  fileSystems."/home" =
+    { device = "/dev/mapper/crypted";
+      fsType = "btrfs";
+      options = [ "subvol=home" ];
+    };
+
+  fileSystems."/nix" =
+    { device = "/dev/mapper/crypted";
+      fsType = "btrfs";
+      options = [ "subvol=nix" ];
     };
 
   swapDevices = [ ];
