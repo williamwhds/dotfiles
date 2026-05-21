@@ -360,8 +360,6 @@
 
           "org.kde.plasma.panelspacer"
 
-          "org.kde.plasma.notifications"
-          "org.kde.plasma.marginsseparator"
           "org.kde.plasma.systemtray"
         ];
       }
