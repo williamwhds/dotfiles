@@ -160,10 +160,13 @@
 
   programs.xwayland.enable = true; # allows X11 apps to run inside Wayland
   programs.zsh.enable = true; # enabling Zsh
+
   services.flatpak.enable = true; # enabling Flatpak
 
   services.fprintd.enable = true; # fingerprint scanner service
   security.pam.services.sudo.fprintAuth = true; # fingerprint for auth sudo in terminal
+  security.pam.services.login.fprintAuth = false; # disable for SDDM
+  security.pam.services.login.enableKwallet = true; # disable kwallet password prompt
 
   programs.niri = {
     enable = true;
