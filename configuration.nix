@@ -227,6 +227,7 @@
     obsidian # note-taking
     kdePackages.kdenlive # video editor
     vesktop # discord client
+    bitwarden-desktop # password manager
 
     # this is getting crowded, I'm modularizing it later
     nil # Nix Language Server
