@@ -162,6 +162,9 @@
   programs.zsh.enable = true; # enabling Zsh
   services.flatpak.enable = true; # enabling Flatpak
 
+  services.fprintd.enable = true; # fingerprint scanner service
+  security.pam.services.sudo.fprintAuth = true; # fingerprint for auth sudo in terminal
+
   programs.niri = {
     enable = true;
     package = pkgs.niri-unstable;
