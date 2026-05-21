@@ -179,6 +179,12 @@
   # Enable CUPS to print documents.
   services.printing.enable = true;
 
+  # openrazer
+  hardware.openrazer = {
+    enable = true;
+    users = [ "williamwhds" ];
+  };
+
   # Enable sound with pipewire.
   services.pulseaudio.enable = false;
   security.rtkit.enable = true;
@@ -229,6 +235,7 @@
     kdePackages.kdenlive # video editor
     vesktop # discord client
     bitwarden-desktop # password manager
+    polychromatic # openrazer gui
 
     # this is getting crowded, I'm modularizing it later
     nil # Nix Language Server
