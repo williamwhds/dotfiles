@@ -5,11 +5,11 @@
     "json-language-server": {
       "binary": {
         "path": "/run/current-system/sw/bin/vscode-json-language-server",
-        "arguments": ["--stdio"]
-      }
+        "arguments": ["--stdio"],
+      },
     },
     "package-version-server": {
-      "binary": { "path": "/run/current-system/sw/bin/package-version-server" }
-    }
-  }
+      "binary": { "path": "/run/current-system/sw/bin/package-version-server" },
+    },
+  },
 }
