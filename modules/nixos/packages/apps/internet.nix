@@ -2,9 +2,13 @@
 
 {
   environment.systemPackages = with pkgs; [
-    floorp-bin
-    vesktop
     protonvpn-gui
     wireguard-tools
+    tor-browser
+    mullvad-browser
+
+    floorp-bin
+
+    vesktop
   ];
 }
