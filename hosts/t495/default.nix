@@ -29,6 +29,7 @@
     ../../modules/nixos/packages/apps/utils.nix
     ../../modules/nixos/packages/apps/media.nix
     ../../modules/nixos/packages/apps/wm-tools.nix
+    ../../modules/nixos/packages/apps/office.nix
 
     # T495-specific
     ../../modules/nixos/optional/battery.nix
