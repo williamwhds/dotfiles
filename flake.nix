@@ -14,6 +14,8 @@
       inputs.home-manager.follows = "home-manager";
     };
 
+    nix-flatpak.url = "github:gmodena/nix-flatpak/?ref=latest"; # declarative flatpak management
+
     awww.url = "git+https://codeberg.org/LGFae/awww"; # wallpaper management
 
     niri.url = "github:sodiboo/niri-flake"; # wm
@@ -51,6 +53,7 @@
             ./hosts/t495
             inputs.niri.nixosModules.niri
             inputs.home-manager.nixosModules.home-manager
+            inputs.nix-flatpak.nixosModules.nix-flatpak
             {
               home-manager.users.williamwhds = ./hosts/t495/home.nix;
               home-manager.useGlobalPkgs = true;
