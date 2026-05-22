@@ -92,7 +92,15 @@
             };
           }
           "org.kde.plasma.marginsseparator"
-          "org.kde.plasma.icontasks"
+          {
+            iconTasks = {
+              launchers = [
+                "applications:systemsettings.desktop"
+                "applications:org.kde.dolphin.desktop"
+                "applications:app.zen_browser.zen.desktop"
+              ];
+            };
+          }
         ];
       }
     ];
