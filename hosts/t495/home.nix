@@ -9,6 +9,7 @@
     ../../modules/home/niri.nix
     ../../modules/home/noctalia.nix
     ../../modules/home/plasma.nix
+    ../../modules/home/zed.nix
   ];
 
   home.username = "williamwhds";
