@@ -29,9 +29,9 @@
     };
 
     disko = {
-        url = "github:nix-community/disko";
-        inputs.nixpkgs.follows = "nixpkgs";
-      };
+      url = "github:nix-community/disko";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
@@ -48,11 +48,11 @@
             inherit inputs;
           };
           modules = [
-            ./configuration.nix # my config files
+            ./hosts/t495
             inputs.niri.nixosModules.niri
             inputs.home-manager.nixosModules.home-manager
             {
-              home-manager.users.williamwhds = ./home.nix;
+              home-manager.users.williamwhds = ./hosts/t495/home.nix;
               home-manager.useGlobalPkgs = true;
               home-manager.useUserPackages = true;
               home-manager.extraSpecialArgs = {
