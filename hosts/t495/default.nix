@@ -26,7 +26,7 @@
     ../../modules/nixos/packages/gaming.nix
     ../../modules/nixos/packages/apps/terminals.nix
     ../../modules/nixos/packages/apps/internet.nix
-    ../../modules/nixos/packages/apps/productivity.nix
+    ../../modules/nixos/packages/apps/utils.nix
     ../../modules/nixos/packages/apps/media.nix
     ../../modules/nixos/packages/apps/wm-tools.nix
 
