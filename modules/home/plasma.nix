@@ -71,7 +71,18 @@
 
           "org.kde.plasma.panelspacer"
 
-          "org.kde.plasma.systemtray"
+          {
+            systemTray = {
+              items.shown = [
+                "org.kde.plasma.notifications"
+                "org.kde.plasma.brightness"
+                "org.kde.plasma.volume"
+                "org.kde.plasma.bluetooth"
+                "org.kde.plasma.network"
+                "org.kde.plasma.battery"
+              ];
+            };
+          }
         ];
       }
 
