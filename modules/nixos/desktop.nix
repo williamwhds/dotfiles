@@ -13,7 +13,11 @@
 
   programs.xwayland.enable = true;
 
-  services.flatpak.enable = true;
-
   services.printing.enable = true;
+
+  services.flatpak.enable = true;
+  services.flatpak.update.auto = {
+    enable = true;
+    onCalendar = "weekly";
+  };
 }
