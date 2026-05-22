@@ -44,7 +44,7 @@
     in
     {
       nixosConfigurations = {
-        nixos-t495 = lib.nixosSystem {
+        t495 = lib.nixosSystem {
           inherit system;
           specialArgs = {
             inherit inputs;
