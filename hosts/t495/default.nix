@@ -36,7 +36,9 @@
     ../../modules/nixos/optional/fingerprint.nix
   ];
 
-  networking.hostName = "nixos";
+  # this host uses btrfs, so we need to use it for docker too
+  virtualisation.docker.storageDriver = "btrfs";
 
+  networking.hostName = "nixos";
   system.stateVersion = "25.11";
 }

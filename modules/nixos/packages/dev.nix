@@ -14,4 +14,9 @@
     nodePackages.vscode-langservers-extracted
     package-version-server
   ];
+
+  # docker
+  virtualisation.docker = {
+    enable = true;
+  };
 }
