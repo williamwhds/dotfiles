@@ -41,13 +41,14 @@
     let
       lib = nixpkgs.lib;
       system = "x86_64-linux";
+      pkgs-unstable = import inputs.nixpkgs-unstable { inherit system; };
     in
     {
       nixosConfigurations = {
         t495 = lib.nixosSystem {
           inherit system;
           specialArgs = {
-            inherit inputs;
+            inherit inputs pkgs-unstable;
           };
           modules = [
             ./hosts/t495
@@ -59,7 +60,7 @@
               home-manager.useGlobalPkgs = true;
               home-manager.useUserPackages = true;
               home-manager.extraSpecialArgs = {
-                inherit inputs;
+                inherit inputs pkgs-unstable;
               };
             }
           ];

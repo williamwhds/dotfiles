@@ -1,8 +1,8 @@
-{ pkgs, ... }:
+{ pkgs, pkgs-unstable, ... }:
 
 {
   environment.systemPackages = with pkgs; [
-    zed-editor
+    pkgs-unstable.zed-editor
     neovim
 
     # Nix
