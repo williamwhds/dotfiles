@@ -2,14 +2,15 @@
 
 {
   environment.systemPackages = with pkgs; [
+    # text editors
     pkgs-unstable.zed-editor
     neovim
 
-    # Nix
+    # nix
     nil
     nixd
 
-    # Web / general
+    # web / general
     nodePackages.vscode-langservers-extracted
     package-version-server
   ];
