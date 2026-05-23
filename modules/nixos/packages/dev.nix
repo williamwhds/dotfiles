@@ -6,6 +6,10 @@
     pkgs-unstable.zed-editor
     neovim
 
+    # distrobox
+    distrobox
+    distroshelf
+
     # nix
     nil
     nixd
