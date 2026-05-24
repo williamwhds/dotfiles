@@ -10,6 +10,9 @@
     distrobox
     distroshelf
 
+    # agents
+    pkgs-unstable.opencode
+
     # nix
     nil
     nixd
