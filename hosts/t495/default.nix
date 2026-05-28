@@ -39,6 +39,11 @@
   # this host uses btrfs, so we need to use it for docker too
   virtualisation.docker.storageDriver = "btrfs";
 
+  # symlinking dotfiles to /etc/nixos
+  systemd.tmpfiles.rules = [
+    "L /etc/nixos - - - - /home/williamwhds/.dotfiles"
+  ];
+
   networking.hostName = "nixos";
   system.stateVersion = "25.11";
 }
