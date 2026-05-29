@@ -1,4 +1,4 @@
-{ ... }:
+{ pkgs, ... }:
 
 {
   services.xserver.enable = true;
@@ -14,6 +14,19 @@
   programs.xwayland.enable = true;
 
   services.printing.enable = true;
+
+  xdg.portal = {
+    enable = true;
+
+    extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
+
+    config = {
+      common = {
+        default = [ "gtk" ];
+        "org.freedesktop.impl.portal.FileChooser" = [ "gtk" ];
+      };
+    };
+  };
 
   services.flatpak.enable = true;
   services.flatpak.update.auto = {

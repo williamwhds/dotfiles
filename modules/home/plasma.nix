@@ -39,7 +39,6 @@
       {
         location = "top";
         height = 30;
-        hiding = "dodgewindows";
         lengthMode = "fill";
 
         widgets = [
@@ -73,14 +72,17 @@
 
           {
             systemTray = {
-              items.shown = [
-                "org.kde.plasma.notifications"
-                "org.kde.plasma.brightness"
-                "org.kde.plasma.volume"
-                "org.kde.plasma.bluetooth"
-                "org.kde.plasma.network"
-                "org.kde.plasma.battery"
-              ];
+              items = {
+                shown = [
+                  "org.kde.plasma.notifications"
+                  "org.kde.plasma.brightness"
+                  "org.kde.plasma.volume"
+                  "org.kde.plasma.bluetooth"
+                  "org.kde.plasma.network"
+                  "org.kde.plasma.battery"
+                ];
+                configs.battery.showPercentage = true;
+              };
             };
           }
         ];

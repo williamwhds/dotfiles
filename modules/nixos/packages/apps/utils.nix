@@ -9,4 +9,8 @@
   ];
 
   programs.gnome-disks.enable = true; # disk management
+
+  services.flatpak.packages = [
+    "com.github.tchx84.Flatseal" # flatpak permissions manager
+  ];
 }

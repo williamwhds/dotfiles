@@ -1,4 +1,10 @@
-{ config, inputs, ... }:
+{
+  config,
+  inputs,
+  lib,
+  pkgs,
+  ...
+}:
 
 {
   imports = [
@@ -26,6 +32,13 @@
       {
         ".config/nvim" = "home/config/nvim";
       };
+
+  # cloning repo to ~/.dotfiles
+  home.activation.cloneDotfiles = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+    if [ ! -d "$HOME/.dotfiles" ]; then
+      ${pkgs.git}/bin/git clone https://github.com/williamwhds/dotfiles "$HOME/.dotfiles"
+    fi
+  '';
 
   programs.home-manager.enable = true;
 }

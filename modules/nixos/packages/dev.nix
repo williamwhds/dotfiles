@@ -1,16 +1,29 @@
-{ pkgs, ... }:
+{ pkgs, pkgs-unstable, ... }:
 
 {
   environment.systemPackages = with pkgs; [
-    zed-editor
+    # text editors
+    pkgs-unstable.zed-editor
     neovim
 
-    # Nix
+    # distrobox
+    distrobox
+    distroshelf
+
+    # agents
+    pkgs-unstable.opencode
+
+    # nix
     nil
     nixd
 
-    # Web / general
+    # web / general
     nodePackages.vscode-langservers-extracted
     package-version-server
   ];
+
+  # docker
+  virtualisation.docker = {
+    enable = true;
+  };
 }
