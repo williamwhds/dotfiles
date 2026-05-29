@@ -41,7 +41,7 @@
 
   # symlinking dotfiles to /etc/nixos
   systemd.tmpfiles.rules = [
-    "L /etc/nixos - - - - /home/williamwhds/.dotfiles"
+    "L+ /etc/nixos - - - - /home/williamwhds/.dotfiles"
   ];
 
   networking.hostName = "nixos";
