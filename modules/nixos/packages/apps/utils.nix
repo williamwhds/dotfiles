@@ -6,6 +6,7 @@
     bitwarden-desktop # password manager
     gnome-calculator # me have gnomes and need to count them
     baobab # disk usage analyzer
+    localsend # file sharing
   ];
 
   programs.gnome-disks.enable = true; # disk management
