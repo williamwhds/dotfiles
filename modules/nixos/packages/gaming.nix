@@ -17,6 +17,5 @@
 
   environment.systemPackages = with pkgs; [
     polychromatic
-    eden
   ];
 }
