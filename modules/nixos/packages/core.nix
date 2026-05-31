@@ -3,6 +3,9 @@
 {
   programs.zsh.enable = true;
 
+  programs.appimage.enable = true;
+  programs.appimage.binfmt = true;
+
   environment.systemPackages = with pkgs; [
     git
     gh # github cli
