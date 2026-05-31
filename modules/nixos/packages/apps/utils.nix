@@ -11,6 +11,10 @@
 
   programs.gnome-disks.enable = true; # disk management
 
+  # localsend ports
+  networking.firewall.allowedTCPPorts = [ 53317 ];
+  networking.firewall.allowedUDPPorts = [ 53317 ];
+
   services.flatpak.packages = [
     "com.github.tchx84.Flatseal" # flatpak permissions manager
   ];
