@@ -8,6 +8,7 @@
     baobab # disk usage analyzer
     localsend # file sharing
     qbittorrent # torrent client
+    moonlight-qt # sunshine client
   ];
 
   programs.gnome-disks.enable = true; # disk management
