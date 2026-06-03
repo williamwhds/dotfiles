@@ -16,6 +16,7 @@
     ../../modules/home/noctalia.nix
     ../../modules/home/plasma.nix
     ../../modules/home/zed.nix
+    ../../modules/home/mangohud
   ];
 
   home.username = "williamwhds";
