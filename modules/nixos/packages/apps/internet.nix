@@ -2,11 +2,11 @@
 
 {
   environment.systemPackages = with pkgs; [
-    protonvpn-gui   # vpn
+    proton-vpn # vpn
     wireguard-tools # needed for protonvpn
-    tor-browser     # tor browser
+    tor-browser # tor browser
     mullvad-browser # privacy focused browser
-    vesktop         # discord client
+    vesktop # discord client
   ];
 
   services.flatpak.packages = [
