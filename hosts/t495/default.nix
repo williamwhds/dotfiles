@@ -44,6 +44,6 @@
     "L+ /etc/nixos - - - - /home/williamwhds/.dotfiles"
   ];
 
-  networking.hostName = "nixos";
+  networking.hostName = "t495";
   system.stateVersion = "25.11";
 }
