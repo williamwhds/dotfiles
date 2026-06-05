@@ -1,18 +1,19 @@
 { ... }:
 
 {
+  nixpkgs.config.allowUnfree = true;
+
   nix.settings.auto-optimise-store = true;
 
-  nix.gc = {
-    automatic = true;
-    dates = "weekly";
-    options = "--delete-older-than 14d";
+  programs.nh = {
+    enable = true;
+    clean.enable = true;
+    clean.extraArgs = "--keep 5 --keep-since 3d";
+    flake = "/home/williamwhds/.dotfiles";
   };
 
   nix.settings.experimental-features = [
     "nix-command"
     "flakes"
   ];
-
-  nixpkgs.config.allowUnfree = true;
 }
