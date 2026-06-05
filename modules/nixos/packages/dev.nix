@@ -18,7 +18,7 @@
     nixd
 
     # web / general
-    nodePackages.vscode-langservers-extracted
+    vscode-langservers-extracted
     package-version-server
   ];
 
