@@ -1,7 +1,7 @@
 { config, ... }:
 
 {
-  programs.noctalia-shell = {
+  programs.noctalia = {
     enable = true;
     settings = {
       bar = {
@@ -90,7 +90,7 @@
       };
 
       wallpaper = {
-        enabled = true; # check this later, I might want to replace awww manager with noctalia's
+        enable = true; # check this later, I might want to replace awww manager with noctalia's
         transitionType = [
           "stripes"
           "wipe"
