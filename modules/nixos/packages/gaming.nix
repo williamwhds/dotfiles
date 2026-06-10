@@ -12,6 +12,22 @@ let
     };
     patches = [ ];
   });
+
+  ryujinx-latest = pkgs.appimageTools.wrapType2 rec {
+    pname = "ryujinx";
+    version = "1.3.308";
+
+    src = pkgs.fetchurl {
+      url = "https://git.ryujinx.app/Ryubing/Canary/releases/download/${version}/ryujinx-canary-${version}-x64.AppImage";
+      hash = "sha256:1b8rnrsb2l395jf3qjx95k7j2c593wniizna1wwfrkai2j17nvki";
+    };
+
+    extraPkgs =
+      pkgs: with pkgs; [
+        icu
+        lttng-ust
+      ];
+  };
 in
 {
   programs.steam = {
@@ -31,5 +47,6 @@ in
   environment.systemPackages = with pkgs; [
     polychromatic
     eden-emu
+    ryujinx-latest
   ];
 }
