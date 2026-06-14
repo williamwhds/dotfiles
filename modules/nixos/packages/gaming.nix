@@ -1,18 +1,6 @@
-{ pkgs, pkgs-unstable, ... }:
+{ pkgs, ... }:
 
 let
-  eden-emu = pkgs-unstable.eden.overrideAttrs (oldAttrs: {
-    version = "0.2.1";
-    src = pkgs-unstable.fetchFromGitea {
-      domain = "git.eden-emu.dev";
-      owner = "eden-emu";
-      repo = "eden";
-      tag = "v0.2.1";
-      hash = "sha256-79/JmIRWysoc3psJqMFyiNc2gjTY4VhJfdNaiTvisMk=";
-    };
-    patches = [ ];
-  });
-
   ryujinx-latest = pkgs.appimageTools.wrapType2 rec {
     pname = "ryujinx";
     version = "1.3.308";
@@ -48,8 +36,8 @@ let
     terminal = false;
   };
 
-  ryujinx-with-desktop = pkgs.stdenv.mkDerivation {
-    pname = "ryujinx-with-desktop";
+  ryujinx-desktop-bundle = pkgs.stdenv.mkDerivation {
+    pname = "ryujinx-desktop";
     inherit (ryujinx-latest) version;
 
     dontUnpack = true;
@@ -63,6 +51,68 @@ let
 
       mkdir -p $out/share/icons/hicolor/256x256/apps
       ln -s ${ryujinx-extracted}/app.ryujinx.Ryujinx.png $out/share/icons/hicolor/256x256/apps/ryujinx.png
+    '';
+  };
+
+  eden-src = pkgs.fetchurl {
+    name = "eden-0.2.1.AppImage";
+    url = "https://stable.eden-emu.dev/v0.2.1/Eden-Linux-v0.2.1-amd64-clang-pgo.AppImage";
+    # change version and hash manually when new release is out
+    # run `nix hash path --type sha256 <path-to-appimage>` to get the new hash
+    hash = "sha256:0vds4n5prsp02fc1j21q80dkfcdbj2mdnavji4cq6j06ifcbya3s";
+  };
+
+  # uses DwarFS (not squashfs), so extract with dwarfsextract instead of appimageTools.extract
+  eden-extracted = pkgs.stdenv.mkDerivation {
+    pname = "eden-extracted";
+    version = "0.2.1";
+
+    src = eden-src;
+
+    nativeBuildInputs = [ pkgs.dwarfs ];
+
+    dontUnpack = true;
+
+    installPhase = ''
+      mkdir -p $out
+      dwarfsextract -i $src -o $out --image-offset auto
+    '';
+  };
+
+  eden = pkgs.appimageTools.wrapAppImage {
+    pname = "eden";
+    version = "0.2.1";
+    src = eden-extracted;
+  };
+
+  eden-desktop = pkgs.makeDesktopItem {
+    name = "eden";
+    desktopName = "Eden";
+    exec = "${eden}/bin/eden %U";
+    icon = "${eden-extracted}/dev.eden_emu.eden.svg";
+    comment = "Nintendo Switch Emulator";
+    categories = [
+      "Game"
+      "Emulator"
+    ];
+    terminal = false;
+  };
+
+  eden-desktop-bundle = pkgs.stdenv.mkDerivation {
+    pname = "eden-desktop";
+    version = "0.2.1";
+
+    dontUnpack = true;
+
+    installPhase = ''
+      mkdir -p $out/bin
+      ln -s ${eden}/bin/eden $out/bin/eden
+
+      mkdir -p $out/share/applications
+      cp ${eden-desktop}/share/applications/* $out/share/applications/
+
+      mkdir -p $out/share/icons/hicolor/scalable/apps
+      ln -s ${eden-extracted}/dev.eden_emu.eden.svg $out/share/icons/hicolor/scalable/apps/dev.eden_emu.eden.svg
     '';
   };
 
@@ -84,7 +134,7 @@ in
 
   environment.systemPackages = with pkgs; [
     polychromatic
-    eden-emu
-    ryujinx-with-desktop
+    eden-desktop-bundle
+    ryujinx-desktop-bundle
   ];
 }
