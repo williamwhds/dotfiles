@@ -1,10 +1,8 @@
 keys:
-    - &recovery_key age1jqqqf75ah2e7dgnfyeg8tjdssdelxgq38cepzvy7kwky7664lg5qtjfvyr
-    - &t495_host age16fnrvnludnl2duqchs6ve30vkhcazavpmc68ucz97l4cxfhxpqkqtdc7tr
+    - &master_key age1jqqqf75ah2e7dgnfyeg8tjdssdelxgq38cepzvy7kwky7664lg5qtjfvyr
 
 creation_rules:
     - path_regex: secrets/.*\.yaml$
       key_groups:
           - age:
-                - *recovery_key
-                - *t495_host
+                - *master_key

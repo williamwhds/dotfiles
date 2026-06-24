@@ -2,6 +2,21 @@
 
 My personal [NixOS](https://nixos.org/) configuration using **flakes**, **disko**, and **home-manager**.
 
+## Pre-install
+### secrets
+Copy the master key so sops-nix can decrypt secrets at boot:
+
+```bash
+ sudo mkdir -p /var/lib/sops-nix # create the directory if it doesn't exist
+ nano /var/lib/sops-nix/keys.txt # paste the key here
+```
+
+Then use the `sops-edit` alias to edit secrets:
+
+```bash
+sops-edit
+```
+
 ## Hosts
 ### T495
 
@@ -37,5 +52,3 @@ sudo reboot
 ```
 
 ## Post-install
-### secrets
-Save the master key to `~/.config/sops/age/keys.txt`. Run `sops-edit` alias to edit secrets files.
