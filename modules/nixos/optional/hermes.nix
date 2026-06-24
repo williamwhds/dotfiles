@@ -1,6 +1,9 @@
 { config, ... }:
 
 {
+  # Add interactive user to the hermes group for CLI access
+  users.users.williamwhds.extraGroups = [ "hermes" ];
+
   services.hermes-agent = {
     enable = true;
 
