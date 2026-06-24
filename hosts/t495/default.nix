@@ -34,6 +34,7 @@
     # T495-specific
     ../../modules/nixos/optional/battery.nix
     ../../modules/nixos/optional/fingerprint.nix
+    ../../modules/nixos/optional/sops.nix
   ];
 
   # this host uses btrfs, so we need to use it for docker too

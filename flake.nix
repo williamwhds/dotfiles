@@ -29,6 +29,11 @@
       url = "github:nix-community/disko";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    sops-nix = {
+      url = "github:Mic92/sops-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
@@ -50,6 +55,7 @@
             inputs.niri.nixosModules.niri
             inputs.home-manager.nixosModules.home-manager
             inputs.nix-flatpak.nixosModules.nix-flatpak
+            inputs.sops-nix.nixosModules.sops
             {
               home-manager.users.williamwhds = ./hosts/t495/home.nix;
               home-manager.useGlobalPkgs = true;

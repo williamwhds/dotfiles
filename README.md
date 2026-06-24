@@ -37,15 +37,5 @@ sudo reboot
 ```
 
 ## Post-install
-
-On first boot, unlock the LUKS partition and log in. The home-manager activation will clone the repo automatically to `~/.dotfiles` and symlink it to `/etc/nixos`. If that didn't happen:
-
-```bash
-git clone https://github.com/williamwhds/dotfiles ~/.dotfiles
-```
-
-Then rebuild to activate home-manager and all user configs:
-
-```bash
-nh os switch ~/.dotfiles
-```
+### secrets
+Save the master key to `~/.config/sops/age/keys.txt`. Run `sops-edit` alias to edit secrets files.

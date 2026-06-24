@@ -1,9 +1,9 @@
-{ pkgs, ... }:
+{ config, pkgs, ... }:
 
 {
   users.users.williamwhds = {
     isNormalUser = true;
-    password = null;
+    hashedPasswordFile = config.sops.secrets."williamwhds-password".path;
     shell = pkgs.zsh;
     description = "William Oliveira";
     extraGroups = [
