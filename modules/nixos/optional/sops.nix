@@ -14,7 +14,9 @@
         neededForUsers = true;
       };
 
-      "ds-hermes-key" = { };
+      "hermes-env" = {
+        format = "yaml";
+      };
     };
   };
 }
