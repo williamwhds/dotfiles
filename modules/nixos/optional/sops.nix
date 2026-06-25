@@ -1,4 +1,4 @@
-{ config, ... }:
+{ ... }:
 
 {
   sops = {
@@ -14,8 +14,13 @@
         neededForUsers = true;
       };
 
-      "hermes-env" = {
+      "deepseek-api-key" = {
         format = "yaml";
+        owner = "williamwhds";
+      };
+
+      "google-api-key" = {
+        owner = "williamwhds";
       };
     };
   };

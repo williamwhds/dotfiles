@@ -35,8 +35,6 @@
     ../../modules/nixos/optional/battery.nix
     ../../modules/nixos/optional/fingerprint.nix
     ../../modules/nixos/optional/sops.nix
-    inputs.hermes-agent.nixosModules.default
-    ../../modules/nixos/optional/hermes.nix
   ];
 
   # this host uses btrfs, so we need to use it for docker too
