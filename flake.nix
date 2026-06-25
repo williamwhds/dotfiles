@@ -16,12 +16,10 @@
 
     nix-flatpak.url = "github:gmodena/nix-flatpak/?ref=latest"; # declarative flatpak management
 
-    awww.url = "git+https://codeberg.org/LGFae/awww"; # wallpaper management
-
     niri.url = "github:sodiboo/niri-flake"; # wm
 
     noctalia = {
-      url = "github:noctalia-dev/noctalia-shell";
+      url = "github:noctalia-dev/noctalia/legacy-v4";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
 
@@ -52,7 +50,6 @@
           };
           modules = [
             ./hosts/t495
-            inputs.niri.nixosModules.niri
             inputs.home-manager.nixosModules.home-manager
             inputs.nix-flatpak.nixosModules.nix-flatpak
             inputs.sops-nix.nixosModules.sops

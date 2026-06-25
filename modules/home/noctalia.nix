@@ -1,8 +1,10 @@
-{ config, ... }:
+{ config, pkgs, ... }:
 
 {
-  programs.noctalia = {
+  programs.noctalia-shell = {
     enable = true;
+    package = pkgs.noctalia-shell;
+
     settings = {
       bar = {
         density = "mini";
@@ -17,16 +19,13 @@
               id = "ControlCenter";
               useDistroLogo = true;
             }
-
             {
               id = "SystemMonitor";
             }
-
             {
               id = "MediaMini";
             }
           ];
-
           center = [
             {
               hideUnoccupied = false;
@@ -34,38 +33,30 @@
               labelMode = "none";
             }
           ];
-
           right = [
             {
               id = "Tray";
             }
-
             {
               id = "NotificationHistory";
             }
-
             {
               id = "KeyboardLayout";
             }
-
             {
               id = "Volume";
             }
-
             {
               id = "Network";
             }
-
             {
               id = "Bluetooth";
             }
-
             {
               id = "Battery";
               alwaysShowPercentage = false;
               warningThreshold = 30;
             }
-
             {
               id = "Clock";
               formatHorizontal = "HH:mm";
@@ -78,7 +69,7 @@
       };
 
       dock = {
-        enable = true;
+        enabled = true;
         position = "bottom";
         displayMode = "auto_hide";
         dockType = "floating";
@@ -90,7 +81,7 @@
       };
 
       wallpaper = {
-        enable = true; # check this later, I might want to replace awww manager with noctalia's
+        enabled = true;
         transitionType = [
           "stripes"
           "wipe"
