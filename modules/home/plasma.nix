@@ -1,121 +1,127 @@
-{ ... }:
-
+{ lib, ... }:
+let
+  inherit (lib) types;
+in
 {
-  programs.plasma = {
-    enable = true;
-    overrideConfig = true;
+  options.myModules.home.plasma = lib.mkOption { type = types.deferredModule; };
 
-    # dark theme
-    workspace = {
-      lookAndFeel = "org.kde.breezedark.desktop";
-    };
+  config.myModules.home.plasma = {
+    programs.plasma = {
+      enable = true;
+      overrideConfig = true;
 
-    configFile = {
-      # trackpad
-      "kcminputrc" = {
-        "Libinput/2/7/SynPS\\/2 Synaptics TouchPad" = {
-          PointerAcceleration = 0.400;
-          PointerAccelerationProfile = 1;
+      # dark theme
+      workspace = {
+        lookAndFeel = "org.kde.breezedark.desktop";
+      };
+
+      configFile = {
+        # trackpad
+        "kcminputrc" = {
+          "Libinput/2/7/SynPS\\/2 Synaptics TouchPad" = {
+            PointerAcceleration = 0.400;
+            PointerAccelerationProfile = 1;
+          };
+        };
+
+        # accessibility
+        "kwinrc" = {
+          "Plugins" = {
+            "shakecursorEnabled" = false;
+          };
+        };
+
+        # prevent Plasma from mounting every device when plugged in
+        "kded5rc" = {
+          "Module-device_automounter" = {
+            autoload = false;
+          };
         };
       };
 
-      # accessibility
-      "kwinrc" = {
-        "Plugins" = {
-          "shakecursorEnabled" = false;
-        };
-      };
+      panels = [
+        # TOP PANEL
+        {
+          location = "top";
+          height = 30;
+          lengthMode = "fill";
 
-      # prevent Plasma from mounting every device when plugged in
-      "kded5rc" = {
-        "Module-device_automounter" = {
-          autoload = false;
-        };
-      };
-    };
+          widgets = [
+            "org.kde.plasma.showdesktop"
+            "org.kde.plasma.marginsseparator"
+            "org.kde.plasma.pager"
+            "org.kde.plasma.marginsseparator"
 
-    panels = [
-      # TOP PANEL
-      {
-        location = "top";
-        height = 30;
-        lengthMode = "fill";
+            "org.kde.plasma.systemmonitor.cpu"
+            "org.kde.plasma.systemmonitor.memory"
+            "org.kde.plasma.systemmonitor.net"
 
-        widgets = [
-          "org.kde.plasma.showdesktop"
-          "org.kde.plasma.marginsseparator"
-          "org.kde.plasma.pager"
-          "org.kde.plasma.marginsseparator"
+            "org.kde.plasma.panelspacer"
 
-          "org.kde.plasma.systemmonitor.cpu"
-          "org.kde.plasma.systemmonitor.memory"
-          "org.kde.plasma.systemmonitor.net"
-
-          "org.kde.plasma.panelspacer"
-
-          {
-            digitalClock = {
-              calendar.firstDayOfWeek = "sunday";
-              date = {
-                enable = true;
-                position = "besideTime";
-                format.custom = "ddd d |";
+            {
+              digitalClock = {
+                calendar.firstDayOfWeek = "sunday";
+                date = {
+                  enable = true;
+                  position = "besideTime";
+                  format.custom = "ddd d |";
+                };
+                time = {
+                  format = "24h";
+                  showSeconds = "onlyInTooltip";
+                };
               };
-              time = {
-                format = "24h";
-                showSeconds = "onlyInTooltip";
+            }
+
+            "org.kde.plasma.panelspacer"
+
+            {
+              systemTray = {
+                items = {
+                  shown = [
+                    "org.kde.plasma.notifications"
+                    "org.kde.plasma.brightness"
+                    "org.kde.plasma.volume"
+                    "org.kde.plasma.bluetooth"
+                    "org.kde.plasma.network"
+                    "org.kde.plasma.battery"
+                  ];
+                  configs.battery.showPercentage = true;
+                };
               };
-            };
-          }
+            }
+          ];
+        }
 
-          "org.kde.plasma.panelspacer"
+        # BOTTOM PANEL
+        {
+          location = "bottom";
+          height = 40;
+          hiding = "autohide";
+          lengthMode = "fit";
 
-          {
-            systemTray = {
-              items = {
-                shown = [
-                  "org.kde.plasma.notifications"
-                  "org.kde.plasma.brightness"
-                  "org.kde.plasma.volume"
-                  "org.kde.plasma.bluetooth"
-                  "org.kde.plasma.network"
-                  "org.kde.plasma.battery"
+          widgets = [
+            {
+              name = "org.kde.plasma.kickoff";
+              config = {
+                General = {
+                  icon = "nix-snowflake-white";
+                };
+              };
+            }
+            "org.kde.plasma.marginsseparator"
+            {
+              iconTasks = {
+                launchers = [
+                  "applications:systemsettings.desktop"
+                  "applications:org.kde.dolphin.desktop"
+                  "applications:app.zen_browser.zen.desktop"
                 ];
-                configs.battery.showPercentage = true;
               };
-            };
-          }
-        ];
-      }
-
-      # BOTTOM PANEL
-      {
-        location = "bottom";
-        height = 40;
-        hiding = "autohide";
-        lengthMode = "fit";
-
-        widgets = [
-          {
-            name = "org.kde.plasma.kickoff";
-            config = {
-              General = {
-                icon = "nix-snowflake-white";
-              };
-            };
-          }
-          "org.kde.plasma.marginsseparator"
-          {
-            iconTasks = {
-              launchers = [
-                "applications:systemsettings.desktop"
-                "applications:org.kde.dolphin.desktop"
-                "applications:app.zen_browser.zen.desktop"
-              ];
-            };
-          }
-        ];
-      }
-    ];
+            }
+          ];
+        }
+      ];
+    };
   };
 }

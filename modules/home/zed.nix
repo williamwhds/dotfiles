@@ -1,9 +1,16 @@
-{ pkgs-unstable, ... }:
+{ lib, pkgs-unstable, ... }:
+let
+  inherit (lib) types;
+in
 {
-  programs.zed-editor = {
-    enable = true;
-    package = pkgs-unstable.zed-editor;
-    installRemoteServer = true;
-    extensions = [ "nix" ];
+  options.myModules.home.zed = lib.mkOption { type = types.deferredModule; };
+
+  config.myModules.home.zed = {
+    programs.zed-editor = {
+      enable = true;
+      package = pkgs-unstable.zed-editor;
+      installRemoteServer = true;
+      extensions = [ "nix" ];
+    };
   };
 }

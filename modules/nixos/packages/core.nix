@@ -1,19 +1,25 @@
-{ pkgs, ... }:
-
+{ lib, pkgs, ... }:
+let
+  inherit (lib) types;
+in
 {
-  programs.zsh.enable = true;
+  options.myModules.nixos."packages-core" = lib.mkOption { type = types.deferredModule; };
 
-  programs.appimage.enable = true;
-  programs.appimage.binfmt = true;
+  config.myModules.nixos."packages-core" = {
+    programs.zsh.enable = true;
 
-  programs.nix-ld.enable = true;
+    programs.appimage.enable = true;
+    programs.appimage.binfmt = true;
 
-  environment.systemPackages = with pkgs; [
-    git
-    gh # github cli
-    curl
-    wget
-    fastfetch
-    btop
-  ];
+    programs.nix-ld.enable = true;
+
+    environment.systemPackages = with pkgs; [
+      git
+      gh # github cli
+      curl
+      wget
+      fastfetch
+      btop
+    ];
+  };
 }

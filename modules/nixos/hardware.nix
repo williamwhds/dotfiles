@@ -1,16 +1,22 @@
-{ ... }:
-
+{ lib, ... }:
+let
+  inherit (lib) types;
+in
 {
-  hardware.graphics = {
-    enable = true;
-    enable32Bit = true;
-  };
+  options.myModules.nixos.hardware = lib.mkOption { type = types.deferredModule; };
 
-  hardware.bluetooth.enable = true;
+  config.myModules.nixos.hardware = {
+    hardware.graphics = {
+      enable = true;
+      enable32Bit = true;
+    };
 
-  zramSwap = {
-    enable = true;
-    algorithm = "zstd";
-    memoryPercent = 50;
+    hardware.bluetooth.enable = true;
+
+    zramSwap = {
+      enable = true;
+      algorithm = "zstd";
+      memoryPercent = 50;
+    };
   };
 }

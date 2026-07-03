@@ -1,6 +1,7 @@
-{ pkgs, ... }:
-
+{ lib, pkgs, ... }:
 let
+  inherit (lib) types;
+
   ryujinx-latest = pkgs.appimageTools.wrapType2 rec {
     pname = "ryujinx";
     version = "1.3.308";
@@ -118,23 +119,27 @@ let
 
 in
 {
-  programs.steam = {
-    enable = true;
-    remotePlay.openFirewall = true;
-    dedicatedServer.openFirewall = true;
-    extraCompatPackages = with pkgs; [
-      proton-ge-bin
+  options.myModules.nixos."packages-gaming" = lib.mkOption { type = types.deferredModule; };
+
+  config.myModules.nixos."packages-gaming" = {
+    programs.steam = {
+      enable = true;
+      remotePlay.openFirewall = true;
+      dedicatedServer.openFirewall = true;
+      extraCompatPackages = with pkgs; [
+        proton-ge-bin
+      ];
+    };
+
+    hardware.openrazer = {
+      enable = true;
+      users = [ "williamwhds" ];
+    };
+
+    environment.systemPackages = with pkgs; [
+      polychromatic
+      eden-desktop-bundle
+      ryujinx-desktop-bundle
     ];
   };
-
-  hardware.openrazer = {
-    enable = true;
-    users = [ "williamwhds" ];
-  };
-
-  environment.systemPackages = with pkgs; [
-    polychromatic
-    eden-desktop-bundle
-    ryujinx-desktop-bundle
-  ];
 }

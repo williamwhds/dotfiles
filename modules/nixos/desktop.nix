@@ -1,36 +1,42 @@
-{ pkgs, ... }:
-
+{ lib, pkgs, ... }:
+let
+  inherit (lib) types;
+in
 {
-  services.xserver.enable = true;
+  options.myModules.nixos.desktop = lib.mkOption { type = types.deferredModule; };
 
-  services.displayManager.sddm.enable = true;
-  services.desktopManager.plasma6.enable = true;
+  config.myModules.nixos.desktop = {
+    services.xserver.enable = true;
 
-  services.xserver.xkb = {
-    layout = "us";
-    variant = "intl";
-  };
+    services.displayManager.sddm.enable = true;
+    services.desktopManager.plasma6.enable = true;
 
-  programs.xwayland.enable = true;
+    services.xserver.xkb = {
+      layout = "us";
+      variant = "intl";
+    };
 
-  services.printing.enable = true;
+    programs.xwayland.enable = true;
 
-  xdg.portal = {
-    enable = true;
+    services.printing.enable = true;
 
-    extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
+    xdg.portal = {
+      enable = true;
 
-    config = {
-      common = {
-        default = [ "gtk" ];
-        "org.freedesktop.impl.portal.FileChooser" = [ "gtk" ];
+      extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
+
+      config = {
+        common = {
+          default = [ "gtk" ];
+          "org.freedesktop.impl.portal.FileChooser" = [ "gtk" ];
+        };
       };
     };
-  };
 
-  services.flatpak.enable = true;
-  services.flatpak.update.auto = {
-    enable = true;
-    onCalendar = "weekly";
+    services.flatpak.enable = true;
+    services.flatpak.update.auto = {
+      enable = true;
+      onCalendar = "weekly";
+    };
   };
 }

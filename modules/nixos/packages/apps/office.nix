@@ -1,6 +1,13 @@
-{ pkgs, ... }:
+{ lib, pkgs, ... }:
+let
+  inherit (lib) types;
+in
 {
-  environment.systemPackages = with pkgs; [
-    libreoffice
-  ];
+  options.myModules.nixos."packages-office" = lib.mkOption { type = types.deferredModule; };
+
+  config.myModules.nixos."packages-office" = {
+    environment.systemPackages = with pkgs; [
+      libreoffice
+    ];
+  };
 }

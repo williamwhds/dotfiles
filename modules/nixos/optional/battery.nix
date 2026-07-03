@@ -1,15 +1,21 @@
-{ ... }:
-
+{ lib, ... }:
+let
+  inherit (lib) types;
+in
 {
-  services.power-profiles-daemon.enable = false;
+  options.myModules.nixos.battery = lib.mkOption { type = types.deferredModule; };
 
-  services.tlp = {
-    enable = true;
-    settings = {
-      START_CHARGE_THRESH_BAT0 = 50;
-      STOP_CHARGE_THRESH_BAT0 = 70;
+  config.myModules.nixos.battery = {
+    services.power-profiles-daemon.enable = false;
+
+    services.tlp = {
+      enable = true;
+      settings = {
+        START_CHARGE_THRESH_BAT0 = 50;
+        STOP_CHARGE_THRESH_BAT0 = 70;
+      };
     };
-  };
 
-  services.upower.enable = true;
+    services.upower.enable = true;
+  };
 }

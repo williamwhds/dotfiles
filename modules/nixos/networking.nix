@@ -1,16 +1,22 @@
-{ ... }:
-
+{ lib, ... }:
+let
+  inherit (lib) types;
+in
 {
-  networking.networkmanager.enable = true;
+  options.myModules.nixos.networking = lib.mkOption { type = types.deferredModule; };
 
-  services.zerotierone = {
-    enable = true;
-    port = 9993;
+  config.myModules.nixos.networking = {
+    networking.networkmanager.enable = true;
+
+    services.zerotierone = {
+      enable = true;
+      port = 9993;
+    };
+
+    services.openssh.enable = true;
+
+    networking.firewall.allowedTCPPorts = [
+      22 # ssh
+    ];
   };
-
-  services.openssh.enable = true;
-
-  networking.firewall.allowedTCPPorts = [
-    22 # ssh
-  ];
 }

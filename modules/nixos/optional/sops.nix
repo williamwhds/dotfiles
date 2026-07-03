@@ -1,26 +1,32 @@
-{ ... }:
-
+{ lib, ... }:
+let
+  inherit (lib) types;
+in
 {
-  sops = {
-    defaultSopsFile = ../../../secrets/secrets.yaml;
-    defaultSopsFormat = "yaml";
+  options.myModules.nixos.sops = lib.mkOption { type = types.deferredModule; };
 
-    # Master age key
-    age.keyFile = "/var/lib/sops-nix/keys.txt";
+  config.myModules.nixos.sops = {
+    sops = {
+      defaultSopsFile = ../../../secrets/secrets.yaml;
+      defaultSopsFormat = "yaml";
 
-    secrets = {
-      # The password needs to be available early in the boot process
-      "williamwhds-password" = {
-        neededForUsers = true;
-      };
+      # master age key
+      age.keyFile = "/var/lib/sops-nix/keys.txt";
 
-      "deepseek-api-key" = {
-        format = "yaml";
-        owner = "williamwhds";
-      };
+      secrets = {
+        # the password needs to be available early in the boot process
+        "williamwhds-password" = {
+          neededForUsers = true;
+        };
 
-      "google-api-key" = {
-        owner = "williamwhds";
+        "deepseek-api-key" = {
+          format = "yaml";
+          owner = "williamwhds";
+        };
+
+        "google-api-key" = {
+          owner = "williamwhds";
+        };
       };
     };
   };

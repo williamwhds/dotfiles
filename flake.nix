@@ -5,6 +5,8 @@
     nixpkgs.url = "github:NixOS/nixpkgs/release-26.05";
     nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
 
+    flake-parts.url = "github:hercules-ci/flake-parts";
+
     home-manager.url = "github:nix-community/home-manager/release-26.05";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
 
@@ -35,34 +37,9 @@
   };
 
   outputs =
-    { self, nixpkgs, ... }@inputs:
-    let
-      lib = nixpkgs.lib;
-      system = "x86_64-linux";
-      pkgs-unstable = import inputs.nixpkgs-unstable { inherit system; };
-    in
-    {
-      nixosConfigurations = {
-        t495 = lib.nixosSystem {
-          inherit system;
-          specialArgs = {
-            inherit inputs pkgs-unstable;
-          };
-          modules = [
-            ./hosts/t495
-            inputs.home-manager.nixosModules.home-manager
-            inputs.nix-flatpak.nixosModules.nix-flatpak
-            inputs.sops-nix.nixosModules.sops
-            {
-              home-manager.users.williamwhds = ./hosts/t495/home.nix;
-              home-manager.useGlobalPkgs = true;
-              home-manager.useUserPackages = true;
-              home-manager.extraSpecialArgs = {
-                inherit inputs pkgs-unstable;
-              };
-            }
-          ];
-        };
-      };
+    { flake-parts, ... }@inputs:
+    flake-parts.lib.mkFlake { inherit inputs; } {
+      systems = [ "x86_64-linux" ];
+      imports = [ ./parts/flake-module.nix ];
     };
 }

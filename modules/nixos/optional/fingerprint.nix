@@ -1,9 +1,15 @@
-{ ... }:
-
+{ lib, ... }:
+let
+  inherit (lib) types;
+in
 {
-  services.fprintd.enable = true;
+  options.myModules.nixos.fingerprint = lib.mkOption { type = types.deferredModule; };
 
-  security.pam.services.sudo.fprintAuth = true;
-  security.pam.services.login.fprintAuth = false;
-  security.pam.services.login.enableKwallet = true;
+  config.myModules.nixos.fingerprint = {
+    services.fprintd.enable = true;
+
+    security.pam.services.sudo.fprintAuth = true;
+    security.pam.services.login.fprintAuth = false;
+    security.pam.services.login.enableKwallet = true;
+  };
 }

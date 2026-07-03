@@ -1,29 +1,40 @@
-{ pkgs, pkgs-unstable, ... }:
-
 {
-  environment.systemPackages = with pkgs; [
-    # text editors
-    pkgs-unstable.zed-editor
-    neovim
+  lib,
+  pkgs,
+  pkgs-unstable,
+  ...
+}:
+let
+  inherit (lib) types;
+in
+{
+  options.myModules.nixos."packages-dev" = lib.mkOption { type = types.deferredModule; };
 
-    # distrobox
-    distrobox
-    distroshelf
+  config.myModules.nixos."packages-dev" = {
+    environment.systemPackages = with pkgs; [
+      # text editors
+      pkgs-unstable.zed-editor
+      neovim
 
-    # agents
-    pkgs-unstable.opencode
+      # distrobox
+      distrobox
+      distroshelf
 
-    # nix
-    nil
-    nixd
+      # agents
+      pkgs-unstable.opencode
 
-    # web / general
-    vscode-langservers-extracted
-    package-version-server
-  ];
+      # nix
+      nil
+      nixd
 
-  # docker
-  virtualisation.docker = {
-    enable = true;
+      # web / general
+      vscode-langservers-extracted
+      package-version-server
+    ];
+
+    # docker
+    virtualisation.docker = {
+      enable = true;
+    };
   };
 }
