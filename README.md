@@ -1,6 +1,6 @@
 # dotfiles
 
-My personal [NixOS](https://nixos.org/) configuration using **flakes**, **disko**, and **home-manager**.
+My personal [NixOS](https://nixos.org/) configuration using **flakes**, **disko**, **home-manager**, and the **[dendritic pattern](https://github.com/mightyiam/dendritic)**. I chose that pattern because it allows me to set both nix and home-manager options in one place and adding new modules without worrying about paths.
 
 ## Pre-install
 ### secrets
@@ -11,7 +11,7 @@ Copy the master key so sops-nix can decrypt secrets at boot:
  nano /var/lib/sops-nix/keys.txt # paste the key here
 ```
 
-Then use the `sops-edit` alias to edit secrets:
+After the install, the `sops-edit` alias may be used to edit secrets:
 
 ```bash
 sops-edit
@@ -25,8 +25,8 @@ Boot from a NixOS ISO, then:
 ```bash
 # clone the repo
 nix-shell -p git
-git clone https://github.com/williamwhds/dotfiles ~/dotfiles
-cd ~/dotfiles
+git clone https://github.com/williamwhds/dotfiles ~/.dotfiles
+cd ~/.dotfiles
 
 # find your disk
 ls -l /dev/disk/by-id/
@@ -42,13 +42,11 @@ sudo nix run github:nix-community/disko -- --mode disko ./hosts/t495/disko-confi
 sudo nixos-generate-config --root /mnt
 
 # copy it into the host dir for use during install
-cp /mnt/etc/nixos/hardware-configuration.nix ~/dotfiles/hosts/t495/
+cp /mnt/etc/nixos/hardware-configuration.nix ~/.dotfiles/hosts/t495/
 
 # install
-sudo nixos-install --flake ~/dotfiles#t495
+sudo nixos-install --flake ~/.dotfiles#t495
 
 # reboot
 sudo reboot
 ```
-
-## Post-install

@@ -5,7 +5,6 @@ in
 {
   options.myModules.nixos.users = lib.mkOption { type = types.deferredModule; };
 
-  # The module value is a function so `config` resolves in the NixOS eval context.
   config.myModules.nixos.users = { config, ... }: {
     users.users.williamwhds = {
       isNormalUser = true;
