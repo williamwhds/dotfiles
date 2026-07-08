@@ -27,8 +27,8 @@ in
       nil
       nixd
 
-      # qml language server (for quickshell / qt6 qml)
-      qmlls
+      # qml (for quickshell / qt6 qml)
+      kdePackages.qtdeclarative # includes qmllint and qmlls
 
       # web / general
       vscode-langservers-extracted

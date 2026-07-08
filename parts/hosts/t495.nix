@@ -13,6 +13,7 @@ let
     "audio"
     "boot"
     "desktop"
+    "fonts"
     "hardware"
     "locale"
     "networking"
