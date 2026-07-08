@@ -27,6 +27,9 @@ in
       nil
       nixd
 
+      # qml language server (for quickshell / qt6 qml)
+      qmlls
+
       # web / general
       vscode-langservers-extracted
       package-version-server
