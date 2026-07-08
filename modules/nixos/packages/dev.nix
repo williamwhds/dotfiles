@@ -14,6 +14,7 @@ in
     environment.systemPackages = with pkgs; [
       # text editors
       pkgs-unstable.zed-editor
+      vscodium
       neovim
 
       # distrobox
