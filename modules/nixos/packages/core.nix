@@ -11,7 +11,16 @@ in
     programs.appimage.enable = true;
     programs.appimage.binfmt = true;
 
-    programs.nix-ld.enable = true;
+    programs.nix-ld = {
+      enable = true;
+      libraries = with pkgs; [
+        webkitgtk_4_1
+        gdk-pixbuf
+        gtk3
+        glib
+        libsoup_3
+      ];
+    };
 
     environment.systemPackages = with pkgs; [
       git
