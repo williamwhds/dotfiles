@@ -18,6 +18,7 @@ let
     "locale"
     "networking"
     "niri"
+    "nur"
     "nix"
     "snapshots"
     "users"
