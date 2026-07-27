@@ -12,6 +12,8 @@ in
 
   config.myModules.nixos."packages-dev" = {
     environment.systemPackages = with pkgs; [
+      devenv
+
       # text editors
       pkgs-unstable.zed-editor
       vscodium
