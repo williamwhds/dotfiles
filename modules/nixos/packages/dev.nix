@@ -1,16 +1,11 @@
-{
-  lib,
-  pkgs,
-  pkgs-unstable,
-  ...
-}:
+{ lib, ... }:
 let
   inherit (lib) types;
 in
 {
   options.myModules.nixos."packages-dev" = lib.mkOption { type = types.deferredModule; };
 
-  config.myModules.nixos."packages-dev" = {
+  config.myModules.nixos."packages-dev" = { pkgs, pkgs-unstable, ... }: {
     environment.systemPackages = with pkgs; [
       devenv
 
@@ -25,6 +20,7 @@ in
 
       # agents
       pkgs-unstable.opencode
+      nur.repos.linyinfeng.deepseek-reasonix
 
       # nix
       nil
