@@ -43,6 +43,7 @@ let
     "plasma"
     "zed"
     "mangohud"
+    "packages-internet"
   ];
 
   resolvedNixosModules = map (name: config.myModules.nixos.${name}) nixosModuleNames;
