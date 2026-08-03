@@ -17,5 +17,10 @@ in
         "docker"
       ];
     };
+
+    nix.settings.trusted-users = [
+      "root"
+      "williamwhds"
+    ];
   };
 }
