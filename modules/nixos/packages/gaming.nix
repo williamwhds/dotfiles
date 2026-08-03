@@ -137,9 +137,12 @@ in
     };
 
     environment.systemPackages = with pkgs; [
-      polychromatic
-      eden-desktop-bundle
-      ryujinx-desktop-bundle
+      polychromatic # openrazer gui
+
+      # emulators
+      eden-desktop-bundle # switch
+      ryujinx-desktop-bundle # switch
+      azahar # 3ds
     ];
   };
 }
