@@ -7,6 +7,7 @@ in
 
   config.myModules.nixos."packages-dev" = { pkgs, pkgs-unstable, ... }: {
     environment.systemPackages = with pkgs; [
+      # declarative developer environments
       devenv
 
       # text editors
@@ -21,6 +22,9 @@ in
       # agents
       pkgs-unstable.opencode
       nur.repos.linyinfeng.deepseek-reasonix
+
+      # android
+      android-tools
 
       # nix
       nil
