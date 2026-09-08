@@ -11,6 +11,11 @@ in
     programs.appimage.enable = true;
     programs.appimage.binfmt = true;
 
+    programs.direnv = {
+      enable = true;
+      nix-direnv.enable = true;
+    };
+
     programs.nix-ld = {
       enable = true;
       libraries = with pkgs; [
