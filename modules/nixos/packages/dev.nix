@@ -5,7 +5,7 @@ in
 {
   options.myModules.nixos."packages-dev" = lib.mkOption { type = types.deferredModule; };
 
-  config.myModules.nixos."packages-dev" = { pkgs, pkgs-unstable, ... }: {
+  config.myModules.nixos."packages-dev" = { pkgs, pkgs-unstable, inputs, ... }: {
     environment.systemPackages = with pkgs; [
       # declarative developer environments
       devenv
@@ -22,6 +22,7 @@ in
       # agents
       pkgs-unstable.opencode
       nur.repos.linyinfeng.deepseek-reasonix
+      inputs.antigravity-nix.packages.${pkgs.stdenv.hostPlatform.system}.google-antigravity-cli
 
       # android
       android-tools

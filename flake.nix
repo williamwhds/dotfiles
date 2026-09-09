@@ -36,6 +36,11 @@
     };
 
     nur.url = "github:nix-community/NUR";
+
+    antigravity-nix = {
+      url = "github:jacopone/antigravity-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
