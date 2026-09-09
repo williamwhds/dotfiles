@@ -135,6 +135,9 @@ in
               {
                 imports = homeImports;
 
+                # disable Home Manager portal management so NixOS system portals handle everything
+                xdg.portal.enable = lib.mkForce false;
+
                 home.file =
                   builtins.mapAttrs
                     (key: value: {
