@@ -32,6 +32,7 @@ let
     "packages-utils"
     "battery"
     "fingerprint"
+    "card-reader"
     "sops"
   ];
 
