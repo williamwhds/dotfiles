@@ -58,6 +58,9 @@ in
             {
               command = [ "noctalia-shell" ];
             }
+            {
+              command = [ "fcitx5" "-d" ];
+            }
           ];
 
           binds = {

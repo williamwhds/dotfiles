@@ -34,6 +34,7 @@ let
     "fingerprint"
     "card-reader"
     "sops"
+    "fcitx5"
   ];
 
   homeModuleNames = [
@@ -45,6 +46,7 @@ let
     "zed"
     "mangohud"
     "packages-internet"
+    "fcitx5"
   ];
 
   resolvedNixosModules = map (name: config.myModules.nixos.${name}) nixosModuleNames;

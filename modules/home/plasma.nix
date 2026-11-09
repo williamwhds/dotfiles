@@ -29,6 +29,10 @@ in
           "Plugins" = {
             "shakecursorEnabled" = false;
           };
+          "Wayland" = {
+            "InputMethod" = "/run/current-system/sw/share/applications/fcitx5-wayland-launcher.desktop";
+            "VirtualKeyboardEnabled" = true;
+          };
         };
 
         # prevent Plasma from mounting every device when plugged in
